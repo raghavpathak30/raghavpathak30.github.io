@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://raghavpathak.me/sitemap-index.xml

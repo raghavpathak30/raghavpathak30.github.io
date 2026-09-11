@@ -1,0 +1,525 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-37fxchfa> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="AI Systems &#38; Cryptography Engineer. Building confidential LLM pipelines, autonomous agent workflows, and AST reachability triage."><link rel="canonical" href="https://raghavpathak.me/"><meta property="og:title" content="Raghav Pathak — AI Systems &#38; Cryptography"><meta property="og:description" content="AI Systems &#38; Cryptography Engineer. Portfolio showcasing applied AI systems, confidential compute, and verified AST triage."><meta property="og:url" content="https://raghavpathak.me/"><meta property="og:type" content="website"><meta property="og:image" content="https://raghavpathak.me/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><title>Raghav Pathak — AI Systems &amp; Cryptographic Engineering</title><link rel="stylesheet" href="/_astro/about.CEhJTLS2.css">
+<link rel="stylesheet" href="/_astro/index.Cg-ioeOF.css"></head> <body data-astro-cid-37fxchfa> <div class="interactive-bg-wrapper" id="interactive-bg-wrapper" aria-hidden="true" data-astro-cid-t4ic7t5r> <!-- Warm Architectural Micro-Grid --> <div class="ambient-grid-overlay" data-astro-cid-t4ic7t5r></div> <!-- Warm Breathing Ambient Aurora Meshes --> <div class="ambient-aurora-glow glow-terracotta" data-astro-cid-t4ic7t5r></div> <div class="ambient-aurora-glow glow-indigo" data-astro-cid-t4ic7t5r></div> <div class="ambient-aurora-glow glow-sage" data-astro-cid-t4ic7t5r></div> <!-- Interactive Dual-Domain Constellation Canvas --> <canvas id="ambient-canvas" class="ambient-canvas" data-astro-cid-t4ic7t5r></canvas> </div> <script>
+  (function() {
+    var canvas = document.getElementById('ambient-canvas');
+    if (!canvas) return;
+
+    var ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    var width = 0;
+    var height = 0;
+    var animationFrameId = null;
+
+    // Smooth mouse position tracking with physics spring
+    var mouse = {
+      x: -2000,
+      y: -2000,
+      targetX: -2000,
+      targetY: -2000,
+      radius: 175,
+      isActive: false
+    };
+
+    function resize() {
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = canvas.width = window.innerWidth * dpr;
+      height = canvas.height = window.innerHeight * dpr;
+      canvas.style.width = window.innerWidth + 'px';
+      canvas.style.height = window.innerHeight + 'px';
+      ctx.scale(dpr, dpr);
+    }
+    resize();
+    window.addEventListener('resize', resize, { passive: true });
+
+    window.addEventListener('mousemove', function(e) {
+      mouse.targetX = e.clientX;
+      mouse.targetY = e.clientY;
+      mouse.isActive = true;
+    }, { passive: true });
+
+    window.addEventListener('mouseleave', function() {
+      mouse.targetX = -2000;
+      mouse.targetY = -2000;
+      mouse.isActive = false;
+    }, { passive: true });
+
+    // Touch support for interactive mobile canvas
+    window.addEventListener('touchmove', function(e) {
+      if (e.touches.length > 0) {
+        mouse.targetX = e.touches[0].clientX;
+        mouse.targetY = e.touches[0].clientY;
+        mouse.isActive = true;
+      }
+    }, { passive: true });
+
+    var isMobile = window.innerWidth < 768;
+    var particleCount = isMobile ? 26 : 48;
+    var particles = [];
+
+    // Node palette: Warm Terracotta (AI/Human), Slate Indigo (Cryptography), Soft Sand (Bridge)
+    var nodeColors = [
+      { r: 224, g: 122, b: 95, type: 'terracotta', glow: 'rgba(224, 122, 95, 0.7)' }, // Warm Terracotta
+      { r: 107, g: 127, b: 196, type: 'indigo', glow: 'rgba(107, 127, 196, 0.7)' },     // Slate Indigo
+      { r: 230, g: 204, b: 178, type: 'sand', glow: 'rgba(230, 204, 178, 0.6)' },       // Soft Sand
+      { r: 139, g: 168, b: 136, type: 'sage', glow: 'rgba(139, 168, 136, 0.7)' }        // Muted Sage
+    ];
+
+    for (var i = 0; i < particleCount; i++) {
+      var colorObj = nodeColors[i % nodeColors.length];
+      var isSpecial = i % 4 === 0;
+      particles.push({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        vx: (Math.random() - 0.5) * 0.45,
+        vy: (Math.random() - 0.5) * 0.45,
+        baseRadius: isSpecial ? 2.8 : (Math.random() * 1.5 + 1.6),
+        alpha: Math.random() * 0.3 + 0.55, // Distinct, visible alpha (0.55 - 0.85)
+        color: colorObj,
+        isSpecial: isSpecial,
+        pulseOffset: Math.random() * Math.PI * 2
+      });
+    }
+
+    var time = 0;
+
+    function render() {
+      var displayWidth = window.innerWidth;
+      var displayHeight = window.innerHeight;
+      ctx.clearRect(0, 0, displayWidth, displayHeight);
+      time += 0.02;
+
+      // Fluid mouse lerping
+      mouse.x += (mouse.targetX - mouse.x) * 0.08;
+      mouse.y += (mouse.targetY - mouse.y) * 0.08;
+
+      var mode = document.documentElement.getAttribute('data-mode') || 'gui';
+      var isTerminal = mode === 'terminal';
+      var globalAlphaMul = isTerminal ? 0.4 : 1.0;
+
+      // Soft ambient light wash around cursor
+      if (mouse.isActive && mouse.x > 0 && mouse.y > 0 && !isTerminal) {
+        var radGrad = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 220);
+        radGrad.addColorStop(0, 'rgba(224, 122, 95, 0.07)');
+        radGrad.addColorStop(0.5, 'rgba(107, 127, 196, 0.04)');
+        radGrad.addColorStop(1, 'transparent');
+        ctx.fillStyle = radGrad;
+        ctx.fillRect(0, 0, displayWidth, displayHeight);
+      }
+
+      var maxConnectDist = isMobile ? 115 : 155;
+      var maxConnectDistSq = maxConnectDist * maxConnectDist;
+
+      // Draw connection lines first (behind particles)
+      for (var i = 0; i < particles.length; i++) {
+        var p1 = particles[i];
+
+        for (var j = i + 1; j < particles.length; j++) {
+          var p2 = particles[j];
+          var dx = p1.x - p2.x;
+          var dy = p1.y - p2.y;
+          var distSq = dx * dx + dy * dy;
+
+          if (distSq < maxConnectDistSq) {
+            var cDist = Math.sqrt(distSq);
+            var factor = 1 - cDist / maxConnectDist;
+            
+            // Check if near mouse for dynamic brightness amplification
+            var midX = (p1.x + p2.x) * 0.5;
+            var midY = (p1.y + p2.y) * 0.5;
+            var mdx = midX - mouse.x;
+            var mdy = midY - mouse.y;
+            var mDist = Math.sqrt(mdx * mdx + mdy * mdy);
+            var mouseBoost = (mDist < mouse.radius) ? (1 - mDist / mouse.radius) * 0.35 : 0;
+
+            // Highly visible line alpha (0.18 - 0.42 with mouse boost)
+            var lineAlpha = (factor * 0.22 + mouseBoost) * globalAlphaMul;
+
+            ctx.beginPath();
+            ctx.moveTo(p1.x, p1.y);
+            ctx.lineTo(p2.x, p2.y);
+            
+            // Subtle dual-tone line blending
+            if (p1.color.type === 'terracotta' || p2.color.type === 'terracotta') {
+              ctx.strokeStyle = 'rgba(224, 122, 95, ' + lineAlpha + ')';
+            } else {
+              ctx.strokeStyle = 'rgba(107, 127, 196, ' + lineAlpha + ')';
+            }
+            ctx.lineWidth = mouseBoost > 0 ? 1.3 : 0.95;
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Update and draw luminescent nodes
+      for (var i = 0; i < particles.length; i++) {
+        var p = particles[i];
+
+        // Organic drift
+        p.x += p.vx;
+        p.y += p.vy;
+
+        // Smooth wrapping with boundary margin
+        if (p.x < -20) p.x = displayWidth + 20;
+        else if (p.x > displayWidth + 20) p.x = -20;
+        if (p.y < -20) p.y = displayHeight + 20;
+        else if (p.y > displayHeight + 20) p.y = -20;
+
+        // Fluid cursor repulsion
+        var cdx = p.x - mouse.x;
+        var cdy = p.y - mouse.y;
+        var dist = Math.sqrt(cdx * cdx + cdy * cdy);
+        if (dist < mouse.radius && dist > 0) {
+          var force = (mouse.radius - dist) / mouse.radius;
+          p.x += (cdx / dist) * force * 1.5;
+          p.y += (cdy / dist) * force * 1.5;
+        }
+
+        var breathing = Math.sin(time + p.pulseOffset) * 0.3;
+        var curRadius = p.baseRadius + breathing;
+        var curAlpha = Math.min(1.0, (p.alpha + breathing * 0.15) * globalAlphaMul);
+
+        // Draw outer glowing halo
+        ctx.save();
+        ctx.shadowBlur = p.isSpecial ? 12 : 7;
+        ctx.shadowColor = p.color.glow;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, curRadius, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(' + p.color.r + ', ' + p.color.g + ', ' + p.color.b + ', ' + curAlpha + ')';
+        ctx.fill();
+
+        // Technical cross mark on special nodes
+        if (p.isSpecial && !isTerminal) {
+          var arm = 4.5;
+          ctx.strokeStyle = 'rgba(247, 244, 238, ' + (curAlpha * 0.6) + ')';
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(p.x - arm, p.y);
+          ctx.lineTo(p.x + arm, p.y);
+          ctx.moveTo(p.x, p.y - arm);
+          ctx.lineTo(p.x, p.y + arm);
+          ctx.stroke();
+        }
+
+        ctx.restore();
+      }
+
+      animationFrameId = requestAnimationFrame(render);
+    }
+
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden) {
+        if (animationFrameId) cancelAnimationFrame(animationFrameId);
+      } else {
+        animationFrameId = requestAnimationFrame(render);
+      }
+    });
+
+    animationFrameId = requestAnimationFrame(render);
+  })();
+</script>    <div id="boot-overlay" class="boot-overlay" aria-hidden="true" data-astro-cid-qozdfemc> <div class="boot-minimal-center" data-astro-cid-qozdfemc> <!-- Clean Minimalist Monogram / Emblem --> <div class="boot-emblem" data-astro-cid-qozdfemc> <span class="boot-emblem-dot" data-astro-cid-qozdfemc></span> <span class="boot-emblem-name" data-astro-cid-qozdfemc>RAGHAV PATHAK</span> </div> <!-- Cryptographic Decryption Single-Line Status --> <div class="boot-scramble-line" id="boot-scramble-line" data-astro-cid-qozdfemc>
+INITIALIZING
+</div> <!-- Ultra-Thin Minimalist Progress Line & Percentage --> <div class="boot-progress-wrapper" data-astro-cid-qozdfemc> <div class="boot-progress-track" data-astro-cid-qozdfemc> <div class="boot-progress-bar" id="boot-progress-bar" data-astro-cid-qozdfemc></div> </div> <div class="boot-counter" id="boot-counter" data-astro-cid-qozdfemc>0%</div> </div> </div> </div> <script>
+  (function() {
+    var overlay = document.getElementById('boot-overlay');
+    if (!overlay) return;
+
+    // Check if user has already seen boot sequence this session
+    var hasBooted = false;
+    try {
+      hasBooted = sessionStorage.getItem('portfolio_boot_seen') === 'true';
+    } catch (e) {}
+
+    // Allow testing via ?reboot=true
+    var urlParams = new URLSearchParams(window.location.search);
+    var forceReboot = urlParams.get('reboot') === 'true';
+
+    if (hasBooted && !forceReboot) {
+      overlay.style.display = 'none';
+      return;
+    }
+
+    overlay.style.display = 'flex';
+
+    var scrambleEl = document.getElementById('boot-scramble-line');
+    var barEl = document.getElementById('boot-progress-bar');
+    var counterEl = document.getElementById('boot-counter');
+
+    var isDone = false;
+    var startTime = performance.now();
+    var duration = 1200; // Fast 1.2s total duration
+
+    var targetWords = ['DECRYPTING', 'CALIBRATING', 'SYSTEM READY'];
+    var glyphs = '0123456789ABCDEF!@#$%&*';
+
+    function finish() {
+      if (isDone) return;
+      isDone = true;
+
+      if (barEl) barEl.style.width = '100%';
+      if (counterEl) counterEl.textContent = '100%';
+      if (scrambleEl) scrambleEl.textContent = 'SYSTEM READY';
+
+      try {
+        sessionStorage.setItem('portfolio_boot_seen', 'true');
+      } catch (e) {}
+
+      overlay.classList.add('boot-fade-out');
+      setTimeout(function() {
+        overlay.style.display = 'none';
+      }, 350);
+    }
+
+    function frame(now) {
+      if (isDone) return;
+      var elapsed = now - startTime;
+      var progress = Math.min(elapsed / duration, 1);
+
+      // Smooth progress curve
+      var ease = 1 - Math.pow(1 - progress, 2);
+      var currentPct = Math.floor(ease * 100);
+
+      if (barEl) barEl.style.width = currentPct + '%';
+      if (counterEl) counterEl.textContent = currentPct + '%';
+
+      // Minimalist cryptographic scramble
+      var wordIndex = Math.min(Math.floor(progress * targetWords.length), targetWords.length - 1);
+      var targetWord = targetWords[wordIndex];
+
+      if (progress >= 0.95) {
+        if (scrambleEl) scrambleEl.textContent = 'SYSTEM READY';
+      } else if (Math.random() < 0.35 && scrambleEl) {
+        var scrambled = '';
+        for (var i = 0; i < targetWord.length; i++) {
+          scrambled += Math.random() < 0.4 ? glyphs[Math.floor(Math.random() * glyphs.length)] : targetWord[i];
+        }
+        scrambleEl.textContent = scrambled;
+      }
+
+      if (progress < 1) {
+        requestAnimationFrame(frame);
+      } else {
+        setTimeout(finish, 150);
+      }
+    }
+
+    requestAnimationFrame(frame);
+
+    // Instant bypass on click or ESC
+    overlay.addEventListener('click', finish);
+    window.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' || e.code === 'Escape') {
+        finish();
+      }
+    });
+  })();
+</script>   <script>
+    // Dual View Mode Controller (Default to Visual GUI for high visual impact)
+    window.setPortfolioMode = function(mode) {
+      if (mode !== 'gui' && mode !== 'terminal') mode = 'gui';
+      document.documentElement.setAttribute('data-mode', mode);
+      document.body.setAttribute('data-mode', mode);
+      try { localStorage.setItem('portfolio-mode', mode); } catch (e) {}
+
+      var btnTerm = document.getElementById('btn-mode-term');
+      var btnGui = document.getElementById('btn-mode-gui');
+      if (btnTerm && btnGui) {
+        if (mode === 'gui') {
+          btnGui.classList.add('active');
+          btnTerm.classList.remove('active');
+        } else {
+          btnTerm.classList.add('active');
+          btnGui.classList.remove('active');
+        }
+      }
+
+      if (mode === 'terminal') {
+        var input = document.getElementById('term-input');
+        if (input) {
+          setTimeout(function() { input.focus(); }, 60);
+        }
+      }
+    };
+
+    // Global Theme Controller (Modern / Matrix / Amber / Nord)
+    window.setPortfolioTheme = function(theme) {
+      if (!theme || !['modern', 'matrix', 'amber', 'nord'].includes(theme)) theme = 'modern';
+      if (theme === 'modern') {
+        document.documentElement.removeAttribute('data-theme');
+        document.documentElement.setAttribute('data-theme', 'modern');
+      } else {
+        document.documentElement.setAttribute('data-theme', theme);
+      }
+      try { localStorage.setItem('portfolio-theme', theme); } catch (e) {}
+
+      document.querySelectorAll('.btn-theme').forEach(function(btn) {
+        if (btn.getAttribute('data-theme-val') === theme) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    };
+
+    window.cycleTheme = function() {
+      var themes = ['modern', 'matrix', 'amber', 'nord'];
+      var current = document.documentElement.getAttribute('data-theme') || 'modern';
+      var idx = themes.indexOf(current);
+      var next = themes[(idx + 1) % themes.length];
+      window.setPortfolioTheme(next);
+    };
+
+    // Auto-initialize on first parse (DEFAULT TO GUI)
+    (function() {
+      var targetMode = 'gui';
+      try {
+        var savedMode = localStorage.getItem('portfolio-mode');
+        if (savedMode === 'terminal' || window.location.hash === '#terminal') targetMode = 'terminal';
+      } catch (e) {}
+      document.documentElement.setAttribute('data-mode', targetMode);
+
+      var targetTheme = 'modern';
+      try {
+        var savedTheme = localStorage.getItem('portfolio-theme');
+        if (savedTheme && ['modern', 'matrix', 'amber', 'nord'].includes(savedTheme)) targetTheme = savedTheme;
+      } catch (e) {}
+      if (targetTheme !== 'modern') document.documentElement.setAttribute('data-theme', targetTheme);
+
+      document.addEventListener('DOMContentLoaded', function() {
+        window.setPortfolioMode(targetMode);
+        window.setPortfolioTheme(targetTheme);
+      });
+    })();
+  </script>  <header class="site-header" data-astro-cid-j7pv25f6> <div class="brand" data-astro-cid-j7pv25f6> <a href="/" class="brand-name" data-astro-cid-j7pv25f6>RAGHAV PATHAK</a> <span class="brand-status" data-astro-cid-j7pv25f6> <span class="status-dot" data-astro-cid-j7pv25f6></span> AI &amp; SECURITY SYSTEMS
+</span> </div> <div class="nav-controls" data-astro-cid-j7pv25f6> <!-- Theme Switcher Pill --> <div class="theme-switch" role="group" aria-label="Theme Selector" data-astro-cid-j7pv25f6> <span class="theme-icon" title="Theme Selector" data-astro-cid-j7pv25f6>🎨</span> <button type="button" class="btn-theme active" data-theme-val="modern" onclick="window.setPortfolioTheme('modern')" title="Modern Dark" data-astro-cid-j7pv25f6>Modern</button> <button type="button" class="btn-theme" data-theme-val="matrix" onclick="window.setPortfolioTheme('matrix')" title="Matrix Phosphor" data-astro-cid-j7pv25f6>Matrix</button> <button type="button" class="btn-theme" data-theme-val="amber" onclick="window.setPortfolioTheme('amber')" title="Amber CRT" data-astro-cid-j7pv25f6>Amber</button> <button type="button" class="btn-theme" data-theme-val="nord" onclick="window.setPortfolioTheme('nord')" title="Nordic Frost" data-astro-cid-j7pv25f6>Nord</button> </div> <!-- Mode Switcher Pill --> <div class="mode-switch" role="group" aria-label="View Mode" data-astro-cid-j7pv25f6> <button type="button" class="btn-mode active" id="btn-mode-gui" onclick="window.setPortfolioMode('gui')" data-astro-cid-j7pv25f6> <span class="mode-icon" data-astro-cid-j7pv25f6>⊞</span> Visual GUI
+</button> <button type="button" class="btn-mode" id="btn-mode-term" onclick="window.setPortfolioMode('terminal')" data-astro-cid-j7pv25f6> <span class="mode-icon" data-astro-cid-j7pv25f6>&gt;_</span> Terminal
+</button> </div> <!-- Quick Navigation Links --> <nav class="header-links" data-astro-cid-j7pv25f6> <a href="#project-showcase" class="nav-link" data-astro-cid-j7pv25f6>Showcase</a> <a href="#skills-stack" class="nav-link" data-astro-cid-j7pv25f6>Skills</a> <a href="/resume/" class="nav-link" data-astro-cid-j7pv25f6>Resume</a> <a href="https://github.com/raghavpathak30" target="_blank" rel="noreferrer" class="nav-link" data-astro-cid-j7pv25f6>GitHub ↗</a> <a href="https://www.linkedin.com/in/raghav-pathak-b14b46282" target="_blank" rel="noreferrer" class="nav-link" data-astro-cid-j7pv25f6>LinkedIn ↗</a> </nav> </div> </header> <main class="page-viewport" data-astro-cid-j7pv25f6> <!-- ========================================== --> <!-- VIEW 1: LIVE INTERACTIVE TERMINAL WORKSTATION --> <!-- ========================================== --> <section id="view-terminal" class="view-panel" data-astro-cid-j7pv25f6> <div class="term-wrapper" data-astro-cid-j7pv25f6> <div class="terminal-container" id="terminal-app" data-astro-cid-eqg5l7fp> <div class="terminal-bar" data-astro-cid-eqg5l7fp> <div class="window-controls" data-astro-cid-eqg5l7fp> <span class="ctrl close" title="Close" data-astro-cid-eqg5l7fp></span> <span class="ctrl minimize" title="Minimize" data-astro-cid-eqg5l7fp></span> <span class="ctrl maximize" title="Maximize" data-astro-cid-eqg5l7fp></span> </div> <div class="terminal-title" data-astro-cid-eqg5l7fp> <span class="host" data-astro-cid-eqg5l7fp>raghav@security-systems</span>:<span class="path" data-astro-cid-eqg5l7fp>~</span> (bash)
+</div> <div class="terminal-actions" data-astro-cid-eqg5l7fp> <span class="pill-badge status-badge" data-astro-cid-eqg5l7fp><span class="pulse-dot" data-astro-cid-eqg5l7fp></span> SEAL 4.1 · ACTIVE</span> <button type="button" class="btn-term-action" id="btn-term-theme" onclick="typeof window.cycleTheme === 'function' ? window.cycleTheme() : null" title="Cycle color themes (Modern / Matrix / Amber / Nord)" data-astro-cid-eqg5l7fp>🎨 Theme</button> <button type="button" class="btn-term-action" id="btn-clear" title="Clear terminal" data-astro-cid-eqg5l7fp>clear</button> <button type="button" class="btn-term-action btn-gui-toggle" id="btn-toggle-visual" onclick="typeof window.setPortfolioMode === 'function' ? window.setPortfolioMode('gui') : document.dispatchEvent(new CustomEvent('switch-to-visual'))" title="Switch to Visual GUI Mode" data-astro-cid-eqg5l7fp>⊞ Visual Mode</button> </div> </div> <div class="terminal-body" id="term-body" data-astro-cid-eqg5l7fp> <!-- Static Welcome Output --> <div class="term-banner" data-astro-cid-eqg5l7fp> <pre class="ascii-banner" data-astro-cid-eqg5l7fp>██████╗  █████╗  ██████╗ ██╗  ██╗ █████╗ ██╗   ██╗
+██╔══██╗██╔══██╗██╔════╝ ██║  ██║██╔══██╗██║   ██║
+██████╔╝███████║██║  ███╗███████║███████║██║   ██║
+██╔══██╗██╔══██║██║   ██║██╔══██║██╔══██║╚██╗ ██╔╝
+██║  ██║██║  ██║╚██████╔╝██║  ██║██║  ██║ ╚████╔╝ 
+╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝  ╚═══╝  
+</pre> <div class="banner-text" data-astro-cid-eqg5l7fp> <p class="role-line" data-astro-cid-eqg5l7fp><span class="highlight" data-astro-cid-eqg5l7fp>Raghav Pathak</span> // AI Engineering &amp; Systems Security Workstation</p> <p class="cred-line" data-astro-cid-eqg5l7fp>B.Tech CSE, LNMIIT (2027) · Grand Finalist, PSB CyberShield 2026 · Built with Gemini API &amp; Google AI Studio</p> <p class="hint-line" data-astro-cid-eqg5l7fp>Type <span class="cmd-pill" data-astro-cid-eqg5l7fp>help</span>, <span class="cmd-pill" data-astro-cid-eqg5l7fp>gemini</span>, or <span class="cmd-pill" data-astro-cid-eqg5l7fp>resume</span>, or click any quick action below:</p> </div> <!-- Quick Command Suggestions --> <div class="quick-chips" id="quick-chips" data-astro-cid-eqg5l7fp> <button type="button" class="chip" data-cmd="help" data-astro-cid-eqg5l7fp>help</button> <button type="button" class="chip" data-cmd="ai" data-astro-cid-eqg5l7fp>ai</button> <button type="button" class="chip" data-cmd="gemini" data-astro-cid-eqg5l7fp>gemini</button> <button type="button" class="chip" data-cmd="resume" data-astro-cid-eqg5l7fp>resume</button> <button type="button" class="chip" data-cmd="projects" data-astro-cid-eqg5l7fp>projects</button> <button type="button" class="chip" data-cmd="bench ppfdaas" data-astro-cid-eqg5l7fp>bench ppfdaas</button> <button type="button" class="chip" data-cmd="bench privadex" data-astro-cid-eqg5l7fp>bench privadex</button> <button type="button" class="chip" data-cmd="scan triage" data-astro-cid-eqg5l7fp>scan triage</button> <button type="button" class="chip" data-cmd="whoami" data-astro-cid-eqg5l7fp>whoami</button> <button type="button" class="chip" data-cmd="skills" data-astro-cid-eqg5l7fp>skills</button> <button type="button" class="chip" data-cmd="theme modern" data-astro-cid-eqg5l7fp>theme modern</button> <button type="button" class="chip" data-cmd="theme matrix" data-astro-cid-eqg5l7fp>theme matrix</button> </div> </div> <!-- Dynamic History Stream --> <div id="term-history" class="term-history" data-astro-cid-eqg5l7fp></div> <!-- Active Input Line --> <div class="term-prompt-line" id="term-input-wrapper" data-astro-cid-eqg5l7fp> <span class="prompt-user" data-astro-cid-eqg5l7fp>raghav@systems</span>:<span class="prompt-tilde" data-astro-cid-eqg5l7fp>~</span><span class="prompt-symbol" data-astro-cid-eqg5l7fp>$</span> <input type="text" id="term-input" class="term-input" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Terminal input" placeholder="type command (try 'help' or 'bench ppfdaas')..." data-astro-cid-eqg5l7fp> </div> </div> </div>  <script type="module" src="/_astro/Terminal.astro_astro_type_script_index_0_lang.sbYBjLa4.js"></script> </div> <!-- Sleek Cyber Status Bar --> <div class="terminal-statusbar" data-astro-cid-j7pv25f6> <div class="statusbar-left" data-astro-cid-j7pv25f6> <span class="status-live-indicator" data-astro-cid-j7pv25f6> <span class="live-dot-cyan" data-astro-cid-j7pv25f6></span> <span class="live-status-text" data-astro-cid-j7pv25f6>WORKSTATION ONLINE</span> </span> <span class="statusbar-sep" data-astro-cid-j7pv25f6>/</span> <span class="statusbar-meta" data-astro-cid-j7pv25f6>GEMINI 1.5 PRO · SEAL 4.1 · AST BFS · 6 SYSTEMS</span> </div> <div class="statusbar-right" data-astro-cid-j7pv25f6> <span class="key-hint" data-astro-cid-j7pv25f6><kbd data-astro-cid-j7pv25f6>TAB</kbd> complete</span> <span class="key-hint" data-astro-cid-j7pv25f6><kbd data-astro-cid-j7pv25f6>↑↓</kbd> history</span> <span class="key-hint" data-astro-cid-j7pv25f6><kbd data-astro-cid-j7pv25f6>CTRL</kbd>+<kbd data-astro-cid-j7pv25f6>L</kbd> clear</span> <button type="button" class="btn-switch-gui-bar" onclick="window.setPortfolioMode('gui')" data-astro-cid-j7pv25f6> <span class="gui-icon" data-astro-cid-j7pv25f6>⊞</span> Switch to Visual GUI
+</button> </div> </div> </section> <!-- ========================================== --> <!-- VIEW 2: DYNAMIC HIGH-IMPACT VISUAL GUI     --> <!-- ========================================== --> <section id="view-gui" class="view-panel" data-astro-cid-j7pv25f6> <!-- Minimal Text, High Visual Impact Hero Section --> <header class="cinematic-hero" data-astro-cid-j7pv25f6> <div class="hero-container" data-astro-cid-j7pv25f6> <!-- Dual-Domain Identity Row --> <div class="dual-domain-pill-row" data-astro-cid-j7pv25f6> <span class="hero-domain-pill hdp-ai" data-astro-cid-j7pv25f6> <span class="hdp-dot" data-astro-cid-j7pv25f6></span> AI Engineering &amp; LLMs
+</span> <span class="hdp-divider" data-astro-cid-j7pv25f6>/</span> <span class="hero-domain-pill hdp-sec" data-astro-cid-j7pv25f6> <span class="hdp-dot" data-astro-cid-j7pv25f6></span> Cryptography &amp; Systems
+</span> </div> <!-- Massive Display Headline --> <h1 class="hero-headline" data-astro-cid-j7pv25f6>
+Engineering Provably Secure Systems &amp; Intelligent AI Pipelines.
+</h1> <!-- Ultra-Clean Subhead --> <p class="hero-punch-sub" data-astro-cid-j7pv25f6>
+Bridging confidential homomorphic compute, zero-hallucination agentic workflows with Google AI Studio, and zero-false-negative AST reachability triage.
+</p> <!-- Action Buttons Bar --> <div class="hero-cta-group" data-astro-cid-j7pv25f6> <a href="#project-showcase" class="cta-primary" data-astro-cid-j7pv25f6> <span data-astro-cid-j7pv25f6>Explore Projects</span> <span class="cta-arrow" data-astro-cid-j7pv25f6>&darr;</span> </a> <a href="#skills-stack" class="cta-secondary" data-astro-cid-j7pv25f6> <span data-astro-cid-j7pv25f6>Dual-Core Stack</span> <span class="cta-arrow" data-astro-cid-j7pv25f6>&darr;</span> </a> <button type="button" class="cta-terminal" onclick="window.setPortfolioMode('terminal')" data-astro-cid-j7pv25f6> <span class="cta-term-icon" data-astro-cid-j7pv25f6>&gt;_</span> <span data-astro-cid-j7pv25f6>Terminal Mode</span> </button> <a href="/resume/" class="cta-ghost" data-astro-cid-j7pv25f6> <span data-astro-cid-j7pv25f6>Resume ↗</span> </a> </div> <!-- Architectural System Telemetry Card --> <div class="hero-tech-status-card" data-astro-cid-j7pv25f6> <div class="htsc-header" data-astro-cid-j7pv25f6> <span class="htsc-dot" data-astro-cid-j7pv25f6></span> <span class="htsc-title" data-astro-cid-j7pv25f6>CORE INVARIANTS // PRODUCTION TARGETS</span> <span class="htsc-badge" data-astro-cid-j7pv25f6>VERIFIED PASS</span> </div> <div class="htsc-grid" data-astro-cid-j7pv25f6> <div class="htsc-item" data-astro-cid-j7pv25f6> <span class="htsc-label" data-astro-cid-j7pv25f6>CONFIDENTIAL COMPUTE</span> <span class="htsc-val" data-astro-cid-j7pv25f6>0 Server Plaintext · SEAL 4.1</span> </div> <div class="htsc-item" data-astro-cid-j7pv25f6> <span class="htsc-label" data-astro-cid-j7pv25f6>CITATION GROUNDING</span> <span class="htsc-val" data-astro-cid-j7pv25f6>0 Fabricated Facts · Gemini 1.5</span> </div> <div class="htsc-item" data-astro-cid-j7pv25f6> <span class="htsc-label" data-astro-cid-j7pv25f6>STATIC REACHABILITY</span> <span class="htsc-val" data-astro-cid-j7pv25f6>0 False Negatives · AST BFS</span> </div> </div> </div> </div> </header> <!-- Interactive Skills Stack Section (Visual Tags) --> <section class="skills-stack-section" id="skills-stack" data-astro-cid-33ew6i4m> <div class="skills-header" data-astro-cid-33ew6i4m> <div class="sh-tag-row" data-astro-cid-33ew6i4m> <span class="hud-pill" data-astro-cid-33ew6i4m>DUAL-CORE ARCHITECTURE</span> </div> <h2 class="sh-title" data-astro-cid-33ew6i4m>Technical Domains &amp; Capabilities</h2> <p class="sh-sub" data-astro-cid-33ew6i4m>
+A human engineer bridging applied cryptography with generative AI systems.
+</p> </div> <div class="skills-pillars-grid" data-astro-cid-33ew6i4m> <!-- PILLAR 1: AI ENGINEERING & LLM DEVELOPMENT --> <div class="pillar-card pillar-ai" id="pillar-ai" data-astro-cid-33ew6i4m> <div class="pillar-head" data-astro-cid-33ew6i4m> <div class="pillar-title-group" data-astro-cid-33ew6i4m> <span class="pillar-badge badge-ai" data-astro-cid-33ew6i4m>CORE PILLAR 01</span> <h3 class="pillar-heading" data-astro-cid-33ew6i4m>AI Engineering &amp; LLM Development</h3> <p class="pillar-summary" data-astro-cid-33ew6i4m>Gemini API, Google AI Studio, multimodal agents &amp; grounding gates</p> </div> <span class="pillar-code-tag" data-astro-cid-33ew6i4m>[AI_LLM]</span> </div> <div class="visual-tags-list" data-astro-cid-33ew6i4m> <div class="visual-tag-item tag-ai" data-tag-idx="0" tabindex="0" data-astro-cid-33ew6i4m> <div class="tag-main" data-astro-cid-33ew6i4m> <span class="tag-dot-ai" data-astro-cid-33ew6i4m></span> <span class="tag-name" data-astro-cid-33ew6i4m>LLM Application Engineering (Gemini API)</span> <span class="tag-badge" data-astro-cid-33ew6i4m>Gemini 1.5 Pro / Flash</span> </div> <p class="tag-micro-desc" data-astro-cid-33ew6i4m>Multimodal document comprehension, native function calling, and structured Pydantic schema enforcement.</p> <div class="tag-projects-row" data-astro-cid-33ew6i4m> <span class="tp-label" data-astro-cid-33ew6i4m>Applied in:</span> <span class="tp-pill" data-astro-cid-33ew6i4m>Dispute Desk</span><span class="tp-pill" data-astro-cid-33ew6i4m>PwnBot</span> </div> </div><div class="visual-tag-item tag-ai" data-tag-idx="1" tabindex="0" data-astro-cid-33ew6i4m> <div class="tag-main" data-astro-cid-33ew6i4m> <span class="tag-dot-ai" data-astro-cid-33ew6i4m></span> <span class="tag-name" data-astro-cid-33ew6i4m>AI Workflows (Google AI Studio)</span> <span class="tag-badge" data-astro-cid-33ew6i4m>Prompt Caching &amp; Studio</span> </div> <p class="tag-micro-desc" data-astro-cid-33ew6i4m>Context caching for complex rulesets, system instruction calibration, and deterministic evaluation harnesses.</p> <div class="tag-projects-row" data-astro-cid-33ew6i4m> <span class="tp-label" data-astro-cid-33ew6i4m>Applied in:</span> <span class="tp-pill" data-astro-cid-33ew6i4m>Dispute Desk</span> </div> </div><div class="visual-tag-item tag-ai" data-tag-idx="2" tabindex="0" data-astro-cid-33ew6i4m> <div class="tag-main" data-astro-cid-33ew6i4m> <span class="tag-dot-ai" data-astro-cid-33ew6i4m></span> <span class="tag-name" data-astro-cid-33ew6i4m>Generative AI Pipelines &amp; Autonomous Agents</span> <span class="tag-badge" data-astro-cid-33ew6i4m>Agent Architecture</span> </div> <p class="tag-micro-desc" data-astro-cid-33ew6i4m>End-to-end multimodal dispute representment, timeline synthesis, and closed-loop tool dispatch.</p> <div class="tag-projects-row" data-astro-cid-33ew6i4m> <span class="tp-label" data-astro-cid-33ew6i4m>Applied in:</span> <span class="tp-pill" data-astro-cid-33ew6i4m>Dispute Desk</span><span class="tp-pill" data-astro-cid-33ew6i4m>SetuGuard</span> </div> </div><div class="visual-tag-item tag-ai" data-tag-idx="3" tabindex="0" data-astro-cid-33ew6i4m> <div class="tag-main" data-astro-cid-33ew6i4m> <span class="tag-dot-ai" data-astro-cid-33ew6i4m></span> <span class="tag-name" data-astro-cid-33ew6i4m>Zero-Hallucination Citation Grounding</span> <span class="tag-badge" data-astro-cid-33ew6i4m>Provable Grounding</span> </div> <p class="tag-micro-desc" data-astro-cid-33ew6i4m>Two-stage verification gates matching generated evidentiary tokens against verified telemetry payloads.</p> <div class="tag-projects-row" data-astro-cid-33ew6i4m> <span class="tp-label" data-astro-cid-33ew6i4m>Applied in:</span> <span class="tp-pill" data-astro-cid-33ew6i4m>Dispute Desk</span><span class="tp-pill" data-astro-cid-33ew6i4m>SetuGuard</span> </div> </div> </div> </div> <!-- PILLAR 2: CRYPTOGRAPHY & SYSTEM SECURITY --> <div class="pillar-card pillar-security" id="pillar-sec" data-astro-cid-33ew6i4m> <div class="pillar-head" data-astro-cid-33ew6i4m> <div class="pillar-title-group" data-astro-cid-33ew6i4m> <span class="pillar-badge badge-sec" data-astro-cid-33ew6i4m>CORE PILLAR 02</span> <h3 class="pillar-heading" data-astro-cid-33ew6i4m>Cryptography &amp; System Security</h3> <p class="pillar-summary" data-astro-cid-33ew6i4m>Side-channel auditing, DSS modular math, homomorphic compute &amp; AST BFS</p> </div> <span class="pillar-code-tag" data-astro-cid-33ew6i4m>[CRYPTO_SEC]</span> </div> <div class="visual-tags-list" data-astro-cid-33ew6i4m> <div class="visual-tag-item tag-sec" data-tag-idx="0" tabindex="0" data-astro-cid-33ew6i4m> <div class="tag-main" data-astro-cid-33ew6i4m> <span class="tag-dot-sec" data-astro-cid-33ew6i4m></span> <span class="tag-name" data-astro-cid-33ew6i4m>Timing Side-Channel Attacks &amp; Auditing</span> <span class="tag-badge" data-astro-cid-33ew6i4m>Side-Channel Analysis</span> </div> <p class="tag-micro-desc" data-astro-cid-33ew6i4m>Constant-time modular arithmetic, memory access leakage mitigation, and statistical timing profile validation.</p> <div class="tag-projects-row" data-astro-cid-33ew6i4m> <span class="tp-label" data-astro-cid-33ew6i4m>Applied in:</span> <span class="tp-pill" data-astro-cid-33ew6i4m>Timing-attack-dss</span><span class="tp-pill" data-astro-cid-33ew6i4m>PrivaDEX</span> </div> </div><div class="visual-tag-item tag-sec" data-tag-idx="1" tabindex="0" data-astro-cid-33ew6i4m> <div class="tag-main" data-astro-cid-33ew6i4m> <span class="tag-dot-sec" data-astro-cid-33ew6i4m></span> <span class="tag-name" data-astro-cid-33ew6i4m>Cryptographic Protocols &amp; DSS Modular Arithmetic</span> <span class="tag-badge" data-astro-cid-33ew6i4m>Modular Math &amp; DSA</span> </div> <p class="tag-micro-desc" data-astro-cid-33ew6i4m>Discrete log signatures, modulo reductions, polynomial blinding, and RLWE lattice constructions.</p> <div class="tag-projects-row" data-astro-cid-33ew6i4m> <span class="tp-label" data-astro-cid-33ew6i4m>Applied in:</span> <span class="tp-pill" data-astro-cid-33ew6i4m>PPFDaaS</span><span class="tp-pill" data-astro-cid-33ew6i4m>PrivaDEX</span> </div> </div><div class="visual-tag-item tag-sec" data-tag-idx="2" tabindex="0" data-astro-cid-33ew6i4m> <div class="tag-main" data-astro-cid-33ew6i4m> <span class="tag-dot-sec" data-astro-cid-33ew6i4m></span> <span class="tag-name" data-astro-cid-33ew6i4m>Homomorphic Encryption (Microsoft SEAL 4.1)</span> <span class="tag-badge" data-astro-cid-33ew6i4m>CKKS &amp; BFV Schemes</span> </div> <p class="tag-micro-desc" data-astro-cid-33ew6i4m>Encrypted inference with zero server secret keys, Galois rotations, and polynomial modulus chain tuning.</p> <div class="tag-projects-row" data-astro-cid-33ew6i4m> <span class="tp-label" data-astro-cid-33ew6i4m>Applied in:</span> <span class="tp-pill" data-astro-cid-33ew6i4m>PPFDaaS</span><span class="tp-pill" data-astro-cid-33ew6i4m>PrivaDEX</span> </div> </div><div class="visual-tag-item tag-sec" data-tag-idx="3" tabindex="0" data-astro-cid-33ew6i4m> <div class="tag-main" data-astro-cid-33ew6i4m> <span class="tag-dot-sec" data-astro-cid-33ew6i4m></span> <span class="tag-name" data-astro-cid-33ew6i4m>Static AST Reachability &amp; Invariant Verification</span> <span class="tag-badge" data-astro-cid-33ew6i4m>AST Call-Graph BFS</span> </div> <p class="tag-micro-desc" data-astro-cid-33ew6i4m>Dynamic dispatch resolution, reachable CVE call-path traversal, and automated triage verification.</p> <div class="tag-projects-row" data-astro-cid-33ew6i4m> <span class="tp-label" data-astro-cid-33ew6i4m>Applied in:</span> <span class="tp-pill" data-astro-cid-33ew6i4m>reachability-triage</span> </div> </div> </div> </div> </div> </section>  <!-- Dynamic Cinematic Project Showcase (One punchy sentence per project) --> <div class="showcase-section-header" data-astro-cid-j7pv25f6> <div class="ssh-container" data-astro-cid-j7pv25f6> <span class="ssh-eyebrow" data-astro-cid-j7pv25f6>CINEMATIC PROJECT SHOWCASE</span> <h2 class="ssh-title" data-astro-cid-j7pv25f6>Verified Systems &amp; Pipelines</h2> <p class="ssh-desc" data-astro-cid-j7pv25f6>
+Scroll down to transition through systems. Each project is engineered with provable invariants and real execution harnesses.
+</p> </div> </div> <section class="dynamic-showcase" id="project-showcase" data-astro-cid-7wpgxigg> <!-- Sticky Side Navigation Rail --> <aside class="showcase-nav-rail" aria-label="Project Navigation Rail" data-astro-cid-7wpgxigg> <div class="rail-track" data-astro-cid-7wpgxigg> <div class="rail-indicator" id="rail-progress-bar" data-astro-cid-7wpgxigg></div> </div> <div class="rail-items" data-astro-cid-7wpgxigg> <a href="#slide-dispute-desk" class="rail-dot active" data-slug="dispute-desk" data-idx="0" title="Dispute Desk" data-astro-cid-7wpgxigg> <span class="dot-num" data-astro-cid-7wpgxigg>01</span> <span class="dot-title" data-astro-cid-7wpgxigg>Dispute Desk</span> </a><a href="#slide-ppfdaas" class="rail-dot " data-slug="ppfdaas" data-idx="1" title="PPFDaaS" data-astro-cid-7wpgxigg> <span class="dot-num" data-astro-cid-7wpgxigg>02</span> <span class="dot-title" data-astro-cid-7wpgxigg>PPFDaaS</span> </a><a href="#slide-reachability-triage" class="rail-dot " data-slug="reachability-triage" data-idx="2" title="reachability-triage" data-astro-cid-7wpgxigg> <span class="dot-num" data-astro-cid-7wpgxigg>03</span> <span class="dot-title" data-astro-cid-7wpgxigg>reachability-triage</span> </a><a href="#slide-setuguard" class="rail-dot " data-slug="setuguard" data-idx="3" title="SetuGuard" data-astro-cid-7wpgxigg> <span class="dot-num" data-astro-cid-7wpgxigg>04</span> <span class="dot-title" data-astro-cid-7wpgxigg>SetuGuard</span> </a><a href="#slide-privadex" class="rail-dot " data-slug="privadex" data-idx="4" title="PrivaDEX" data-astro-cid-7wpgxigg> <span class="dot-num" data-astro-cid-7wpgxigg>05</span> <span class="dot-title" data-astro-cid-7wpgxigg>PrivaDEX</span> </a><a href="#slide-pwnbot" class="rail-dot " data-slug="pwnbot" data-idx="5" title="PwnBot" data-astro-cid-7wpgxigg> <span class="dot-num" data-astro-cid-7wpgxigg>06</span> <span class="dot-title" data-astro-cid-7wpgxigg>PwnBot</span> </a> </div> </aside> <!-- Floating Keyboard & Scroll Hint HUD --> <div class="floating-scroll-hud" data-astro-cid-7wpgxigg> <div class="hud-content" data-astro-cid-7wpgxigg> <span class="hud-label" data-astro-cid-7wpgxigg>SCROLL OR USE ARROWS</span> <span class="hud-keys" data-astro-cid-7wpgxigg><kbd data-astro-cid-7wpgxigg>↓</kbd> <kbd data-astro-cid-7wpgxigg>↑</kbd></span> <span class="hud-sep" data-astro-cid-7wpgxigg>·</span> <span class="hud-counter" id="active-project-counter" data-astro-cid-7wpgxigg>01 / 06</span> </div> </div> <!-- Pinned Scroll Slides Deck --> <div class="slides-deck" id="slides-deck" data-astro-cid-7wpgxigg> <article class="project-slide slide-ai" id="slide-dispute-desk" data-slug="dispute-desk" data-index="1" data-astro-cid-7wpgxigg> <div class="slide-ambient-aura" data-astro-cid-7wpgxigg></div> <div class="slide-inner-grid" data-astro-cid-7wpgxigg> <!-- Left Column: Striking Typography & Punchline --> <div class="slide-text-col" data-astro-cid-7wpgxigg> <!-- Top Metadata Row --> <div class="slide-meta-row" data-astro-cid-7wpgxigg> <span class="slide-index-badge" data-astro-cid-7wpgxigg>
+// 01 OF 06 </span> <span class="domain-pill dp-ai" data-astro-cid-7wpgxigg> ✦ AI ENGINEERING &amp; LLMs </span> <span class="video-pill" data-astro-cid-7wpgxigg> <span class="vid-dot" data-astro-cid-7wpgxigg></span> VIDEO DEMO
+</span> </div> <!-- Project Title with Striking Display Typography --> <h2 class="slide-title" data-astro-cid-7wpgxigg> <a href="/work/dispute-desk/" class="title-link" data-astro-cid-7wpgxigg> Dispute Desk </a> </h2> <!-- One Massive, Punchy Sentence per Project --> <div class="punchline-wrapper" data-astro-cid-7wpgxigg> <p class="slide-punchline" data-astro-cid-7wpgxigg> Autonomous multimodal agent that ingests payment chargebacks, extracts timeline evidence, and synthesizes audit-proof representment cases with zero hallucinated citations. </p> </div> <!-- Interactive Tech Stack Tags --> <div class="slide-tags-row" data-astro-cid-7wpgxigg> <span class="interactive-tag tag-glow-ai" data-astro-cid-7wpgxigg> Python </span><span class="interactive-tag tag-glow-ai" data-astro-cid-7wpgxigg> Gemini API </span><span class="interactive-tag tag-glow-ai" data-astro-cid-7wpgxigg> Google AI Studio </span><span class="interactive-tag tag-glow-ai" data-astro-cid-7wpgxigg> FastAPI </span><span class="interactive-tag tag-glow-ai" data-astro-cid-7wpgxigg> Pydantic </span><span class="interactive-tag tag-glow-ai" data-astro-cid-7wpgxigg> Grounding Gate </span> </div> <!-- Clear Action Bar --> <div class="slide-actions-bar" data-astro-cid-7wpgxigg> <a href="/work/dispute-desk/" class="btn-deep-dive" data-astro-cid-7wpgxigg> <span data-astro-cid-7wpgxigg>Explore Architecture &amp; Deep Dive</span> <span class="btn-arrow" data-astro-cid-7wpgxigg>&rarr;</span> </a> <a href="/work/dispute-desk/#video-walkthrough" class="btn-watch-demo" data-astro-cid-7wpgxigg> <span class="btn-play" data-astro-cid-7wpgxigg>▶</span> <span data-astro-cid-7wpgxigg>Watch Video Walkthrough</span> </a> <a href="https://github.com/raghavpathak30/dispute-desk" target="_blank" rel="noreferrer" class="btn-github-link" title="Open GitHub Repository" data-astro-cid-7wpgxigg> <span data-astro-cid-7wpgxigg>GitHub ↗</span> </a> </div> </div> <!-- Right Column: Visual System Hologram & Architecture Preview Graphic --> <div class="slide-visual-col" data-astro-cid-7wpgxigg> <a href="/work/dispute-desk/" class="visual-card-link" aria-label="View Dispute Desk deep dive" data-astro-cid-7wpgxigg> <div class="hologram-card" data-astro-cid-7wpgxigg> <div class="hc-header" data-astro-cid-7wpgxigg> <span class="hc-status-dot hcsd-ai" data-astro-cid-7wpgxigg></span> <span class="hc-id" data-astro-cid-7wpgxigg>SYSTEM::DISPUTE-DESK</span> <span class="hc-type" data-astro-cid-7wpgxigg>NEURAL AGENT</span> </div> <!-- Dynamic Visual Telemetry Windows per Project --> <div class="hc-graphic-canvas" data-astro-cid-7wpgxigg> <div class="code-telemetry-window" data-astro-cid-7wpgxigg> <div class="ctw-bar" data-astro-cid-7wpgxigg> <span class="ctw-file" data-astro-cid-7wpgxigg>dispute_pipeline.py</span> <span class="ctw-status text-emerald" data-astro-cid-7wpgxigg>READY</span> </div> <pre class="ctw-code" data-astro-cid-7wpgxigg><code data-astro-cid-7wpgxigg><span class="text-quiet" data-astro-cid-7wpgxigg>[0.00s]</span> Ingesting Visa dispute PDF (Reason Code: 10.4)
+<span class="text-quiet" data-astro-cid-7wpgxigg>[0.34s]</span> Context cache hit: Visa Compelling Evidence 3.0
+<span class="text-quiet" data-astro-cid-7wpgxigg>[0.89s]</span> Gemini 1.5 Pro: Synthesizing timeline evidence
+<span class="text-quiet" data-astro-cid-7wpgxigg>[1.42s]</span> Grounding Gate: PASS (0 ungrounded claims)
+<span class="text-quiet" data-astro-cid-7wpgxigg>[1.98s]</span> Formatted representment PDF generated</code></pre> <a href="/work/dispute-desk/#video-walkthrough" class="ctw-demo-pill" data-astro-cid-7wpgxigg> <span class="ctw-play" data-astro-cid-7wpgxigg>▶</span> Watch 5-Min Video Walkthrough (YouTube) ↗
+</a> </div>      </div> <div class="hc-footer" data-astro-cid-7wpgxigg> <span class="hc-subtext" data-astro-cid-7wpgxigg>Multimodal Telemetry &amp; Citation Grounding Gate</span> <span class="hc-cta-hint" data-astro-cid-7wpgxigg>View Technical Breakdown &rarr;</span> </div> </div> </a> </div> </div> </article><article class="project-slide slide-security" id="slide-ppfdaas" data-slug="ppfdaas" data-index="2" data-astro-cid-7wpgxigg> <div class="slide-ambient-aura" data-astro-cid-7wpgxigg></div> <div class="slide-inner-grid" data-astro-cid-7wpgxigg> <!-- Left Column: Striking Typography & Punchline --> <div class="slide-text-col" data-astro-cid-7wpgxigg> <!-- Top Metadata Row --> <div class="slide-meta-row" data-astro-cid-7wpgxigg> <span class="slide-index-badge" data-astro-cid-7wpgxigg>
+// 02 OF 06 </span> <span class="domain-pill dp-sec" data-astro-cid-7wpgxigg> 🛡️ CRYPTOGRAPHY &amp; SECURITY </span>  </div> <!-- Project Title with Striking Display Typography --> <h2 class="slide-title" data-astro-cid-7wpgxigg> <a href="/work/ppfdaas/" class="title-link" data-astro-cid-7wpgxigg> PPFDaaS </a> </h2> <!-- One Massive, Punchy Sentence per Project --> <div class="punchline-wrapper" data-astro-cid-7wpgxigg> <p class="slide-punchline" data-astro-cid-7wpgxigg> Evaluates neural fraud risk across client transactions without ever decrypting sensitive financial data, utilizing CKKS homomorphic encryption with zero server secret keys. </p> </div> <!-- Interactive Tech Stack Tags --> <div class="slide-tags-row" data-astro-cid-7wpgxigg> <span class="interactive-tag tag-glow-sec" data-astro-cid-7wpgxigg> C++ </span><span class="interactive-tag tag-glow-sec" data-astro-cid-7wpgxigg> Python </span><span class="interactive-tag tag-glow-sec" data-astro-cid-7wpgxigg> Microsoft SEAL </span><span class="interactive-tag tag-glow-sec" data-astro-cid-7wpgxigg> gRPC </span><span class="interactive-tag tag-glow-sec" data-astro-cid-7wpgxigg> Docker </span><span class="interactive-tag tag-glow-sec" data-astro-cid-7wpgxigg> CMake </span> </div> <!-- Clear Action Bar --> <div class="slide-actions-bar" data-astro-cid-7wpgxigg> <a href="/work/ppfdaas/" class="btn-deep-dive" data-astro-cid-7wpgxigg> <span data-astro-cid-7wpgxigg>Explore Architecture &amp; Deep Dive</span> <span class="btn-arrow" data-astro-cid-7wpgxigg>&rarr;</span> </a>  <a href="https://github.com/raghavpathak30/PPFDaaS" target="_blank" rel="noreferrer" class="btn-github-link" title="Open GitHub Repository" data-astro-cid-7wpgxigg> <span data-astro-cid-7wpgxigg>GitHub ↗</span> </a> </div> </div> <!-- Right Column: Visual System Hologram & Architecture Preview Graphic --> <div class="slide-visual-col" data-astro-cid-7wpgxigg> <a href="/work/ppfdaas/" class="visual-card-link" aria-label="View PPFDaaS deep dive" data-astro-cid-7wpgxigg> <div class="hologram-card" data-astro-cid-7wpgxigg> <div class="hc-header" data-astro-cid-7wpgxigg> <span class="hc-status-dot hcsd-sec" data-astro-cid-7wpgxigg></span> <span class="hc-id" data-astro-cid-7wpgxigg>SYSTEM::PPFDAAS</span> <span class="hc-type" data-astro-cid-7wpgxigg>PROVABLE COMPUTE</span> </div> <!-- Dynamic Visual Telemetry Windows per Project --> <div class="hc-graphic-canvas" data-astro-cid-7wpgxigg>  <div class="code-telemetry-window" data-astro-cid-7wpgxigg> <div class="ctw-bar" data-astro-cid-7wpgxigg> <span class="ctw-file" data-astro-cid-7wpgxigg>ckks_evaluator.cpp</span> <span class="ctw-status text-cyan" data-astro-cid-7wpgxigg>SEAL 4.1</span> </div> <pre class="ctw-code" data-astro-cid-7wpgxigg><code data-astro-cid-7wpgxigg><span class="text-quiet" data-astro-cid-7wpgxigg>Scheme:</span>        CKKS (RNS-variant, Depth-1)
+<span class="text-quiet" data-astro-cid-7wpgxigg>Parameters:</span>    poly_modulus_degree = 8192
+<span class="text-quiet" data-astro-cid-7wpgxigg>Coeff Modulus:</span> 160-bit modulus chain
+<span class="text-quiet" data-astro-cid-7wpgxigg>Server Keys:</span>   0 Bytes (Evaluation keys only)
+<span class="text-quiet" data-astro-cid-7wpgxigg>Mean Latency:</span>  7.54 ms (p99 7.79 ms, n=1,000)
+<span class="text-quiet" data-astro-cid-7wpgxigg>Throughput:</span>    198.7 req/s closed-loop peak</code></pre> </div>     </div> <div class="hc-footer" data-astro-cid-7wpgxigg> <span class="hc-subtext" data-astro-cid-7wpgxigg>CKKS Polynomial Blinding &amp; Zero Server Secret Keys</span> <span class="hc-cta-hint" data-astro-cid-7wpgxigg>View Technical Breakdown &rarr;</span> </div> </div> </a> </div> </div> </article><article class="project-slide slide-security" id="slide-reachability-triage" data-slug="reachability-triage" data-index="3" data-astro-cid-7wpgxigg> <div class="slide-ambient-aura" data-astro-cid-7wpgxigg></div> <div class="slide-inner-grid" data-astro-cid-7wpgxigg> <!-- Left Column: Striking Typography & Punchline --> <div class="slide-text-col" data-astro-cid-7wpgxigg> <!-- Top Metadata Row --> <div class="slide-meta-row" data-astro-cid-7wpgxigg> <span class="slide-index-badge" data-astro-cid-7wpgxigg>
+// 03 OF 06 </span> <span class="domain-pill dp-sec" data-astro-cid-7wpgxigg> 🛡️ CRYPTOGRAPHY &amp; SECURITY </span>  </div> <!-- Project Title with Striking Display Typography --> <h2 class="slide-title" data-astro-cid-7wpgxigg> <a href="/work/reachability-triage/" class="title-link" data-astro-cid-7wpgxigg> reachability-triage </a> </h2> <!-- One Massive, Punchy Sentence per Project --> <div class="punchline-wrapper" data-astro-cid-7wpgxigg> <p class="slide-punchline" data-astro-cid-7wpgxigg> Traverses AST call graphs via breadth-first search to prove whether vulnerable dependencies are actually executable from production endpoints, eliminating false positive alerts. </p> </div> <!-- Interactive Tech Stack Tags --> <div class="slide-tags-row" data-astro-cid-7wpgxigg> <span class="interactive-tag tag-glow-sec" data-astro-cid-7wpgxigg> Python </span><span class="interactive-tag tag-glow-sec" data-astro-cid-7wpgxigg> FastAPI </span><span class="interactive-tag tag-glow-sec" data-astro-cid-7wpgxigg> Pydantic </span><span class="interactive-tag tag-glow-sec" data-astro-cid-7wpgxigg> AST </span><span class="interactive-tag tag-glow-sec" data-astro-cid-7wpgxigg> pytest </span> </div> <!-- Clear Action Bar --> <div class="slide-actions-bar" data-astro-cid-7wpgxigg> <a href="/work/reachability-triage/" class="btn-deep-dive" data-astro-cid-7wpgxigg> <span data-astro-cid-7wpgxigg>Explore Architecture &amp; Deep Dive</span> <span class="btn-arrow" data-astro-cid-7wpgxigg>&rarr;</span> </a>  <a href="https://github.com/raghavpathak30/reachability-triage" target="_blank" rel="noreferrer" class="btn-github-link" title="Open GitHub Repository" data-astro-cid-7wpgxigg> <span data-astro-cid-7wpgxigg>GitHub ↗</span> </a> </div> </div> <!-- Right Column: Visual System Hologram & Architecture Preview Graphic --> <div class="slide-visual-col" data-astro-cid-7wpgxigg> <a href="/work/reachability-triage/" class="visual-card-link" aria-label="View reachability-triage deep dive" data-astro-cid-7wpgxigg> <div class="hologram-card" data-astro-cid-7wpgxigg> <div class="hc-header" data-astro-cid-7wpgxigg> <span class="hc-status-dot hcsd-sec" data-astro-cid-7wpgxigg></span> <span class="hc-id" data-astro-cid-7wpgxigg>SYSTEM::REACHABILITY-TRIAGE</span> <span class="hc-type" data-astro-cid-7wpgxigg>PROVABLE COMPUTE</span> </div> <!-- Dynamic Visual Telemetry Windows per Project --> <div class="hc-graphic-canvas" data-astro-cid-7wpgxigg>   <div class="code-telemetry-window" data-astro-cid-7wpgxigg> <div class="ctw-bar" data-astro-cid-7wpgxigg> <span class="ctw-file" data-astro-cid-7wpgxigg>ast_reachability_bfs.py</span> <span class="ctw-status text-emerald" data-astro-cid-7wpgxigg>BFS RESOLVED</span> </div> <pre class="ctw-code" data-astro-cid-7wpgxigg><code data-astro-cid-7wpgxigg><span class="text-quiet" data-astro-cid-7wpgxigg>Root:</span>     POST /api/v1/checkout (main.py:44)
+<span class="text-quiet" data-astro-cid-7wpgxigg>Edge:</span>     ├── dispatch_payment() -> StripeGateway
+<span class="text-quiet" data-astro-cid-7wpgxigg>Edge:</span>     │   └── requests.post() -> urllib3 (v1.26.4)
+<span class="text-quiet" data-astro-cid-7wpgxigg>Symbol:</span>   └── [CVE-2021-33503] PoolManager.urlopen
+<span class="text-quiet" data-astro-cid-7wpgxigg>Verdict:</span>  REACHABLE (Depth: 3, 0 False Negatives)</code></pre> </div>    </div> <div class="hc-footer" data-astro-cid-7wpgxigg> <span class="hc-subtext" data-astro-cid-7wpgxigg>AST Call-Edge Graph &amp; Dynamic Dispatch Guard</span> <span class="hc-cta-hint" data-astro-cid-7wpgxigg>View Technical Breakdown &rarr;</span> </div> </div> </a> </div> </div> </article><article class="project-slide slide-ai" id="slide-setuguard" data-slug="setuguard" data-index="4" data-astro-cid-7wpgxigg> <div class="slide-ambient-aura" data-astro-cid-7wpgxigg></div> <div class="slide-inner-grid" data-astro-cid-7wpgxigg> <!-- Left Column: Striking Typography & Punchline --> <div class="slide-text-col" data-astro-cid-7wpgxigg> <!-- Top Metadata Row --> <div class="slide-meta-row" data-astro-cid-7wpgxigg> <span class="slide-index-badge" data-astro-cid-7wpgxigg>
+// 04 OF 06 </span> <span class="domain-pill dp-ai" data-astro-cid-7wpgxigg> ✦ AI ENGINEERING &amp; LLMs </span>  </div> <!-- Project Title with Striking Display Typography --> <h2 class="slide-title" data-astro-cid-7wpgxigg> <a href="/work/setuguard/" class="title-link" data-astro-cid-7wpgxigg> SetuGuard </a> </h2> <!-- One Massive, Punchy Sentence per Project --> <div class="punchline-wrapper" data-astro-cid-7wpgxigg> <p class="slide-punchline" data-astro-cid-7wpgxigg> Combines static APK vector retrieval with hallucination-gated LLM reasoning to extract MITRE ATT&amp;CK techniques and synthesize verifiable YARA security rules. </p> </div> <!-- Interactive Tech Stack Tags --> <div class="slide-tags-row" data-astro-cid-7wpgxigg> <span class="interactive-tag tag-glow-ai" data-astro-cid-7wpgxigg> Python </span><span class="interactive-tag tag-glow-ai" data-astro-cid-7wpgxigg> Androguard </span><span class="interactive-tag tag-glow-ai" data-astro-cid-7wpgxigg> FAISS </span><span class="interactive-tag tag-glow-ai" data-astro-cid-7wpgxigg> YARA </span><span class="interactive-tag tag-glow-ai" data-astro-cid-7wpgxigg> XGBoost </span><span class="interactive-tag tag-glow-ai" data-astro-cid-7wpgxigg> SHAP </span><span class="interactive-tag tag-glow-ai" data-astro-cid-7wpgxigg> Flask </span><span class="interactive-tag tag-glow-ai" data-astro-cid-7wpgxigg> Playwright </span> </div> <!-- Clear Action Bar --> <div class="slide-actions-bar" data-astro-cid-7wpgxigg> <a href="/work/setuguard/" class="btn-deep-dive" data-astro-cid-7wpgxigg> <span data-astro-cid-7wpgxigg>Explore Architecture &amp; Deep Dive</span> <span class="btn-arrow" data-astro-cid-7wpgxigg>&rarr;</span> </a>  <a href="https://github.com/raghavpathak30/SetuGuard" target="_blank" rel="noreferrer" class="btn-github-link" title="Open GitHub Repository" data-astro-cid-7wpgxigg> <span data-astro-cid-7wpgxigg>GitHub ↗</span> </a> </div> </div> <!-- Right Column: Visual System Hologram & Architecture Preview Graphic --> <div class="slide-visual-col" data-astro-cid-7wpgxigg> <a href="/work/setuguard/" class="visual-card-link" aria-label="View SetuGuard deep dive" data-astro-cid-7wpgxigg> <div class="hologram-card" data-astro-cid-7wpgxigg> <div class="hc-header" data-astro-cid-7wpgxigg> <span class="hc-status-dot hcsd-ai" data-astro-cid-7wpgxigg></span> <span class="hc-id" data-astro-cid-7wpgxigg>SYSTEM::SETUGUARD</span> <span class="hc-type" data-astro-cid-7wpgxigg>NEURAL AGENT</span> </div> <!-- Dynamic Visual Telemetry Windows per Project --> <div class="hc-graphic-canvas" data-astro-cid-7wpgxigg>    <div class="code-telemetry-window" data-astro-cid-7wpgxigg> <div class="ctw-bar" data-astro-cid-7wpgxigg> <span class="ctw-file" data-astro-cid-7wpgxigg>rag_grounding_gate.py</span> <span class="ctw-status text-emerald" data-astro-cid-7wpgxigg>PASS (7/7)</span> </div> <pre class="ctw-code" data-astro-cid-7wpgxigg><code data-astro-cid-7wpgxigg><span class="text-quiet" data-astro-cid-7wpgxigg>Corpus:</span>    51 Banking APK packages (Androguard)
+<span class="text-quiet" data-astro-cid-7wpgxigg>Index:</span>     FAISS L2 Flat (IndexIVFFlat, nlist=16)
+<span class="text-quiet" data-astro-cid-7wpgxigg>Model:</span>     Mistral 7B (Ollama, temp=0.0, seed=42)
+<span class="text-quiet" data-astro-cid-7wpgxigg>Gate:</span>      0 fabricated citations across hostile suite
+<span class="text-quiet" data-astro-cid-7wpgxigg>Latency:</span>   11x Speedup (7.6s -> 0.66s via precomputed CV)</code></pre> </div>   </div> <div class="hc-footer" data-astro-cid-7wpgxigg> <span class="hc-subtext" data-astro-cid-7wpgxigg>FAISS Vector Retrieval &amp; YARA Synthesis</span> <span class="hc-cta-hint" data-astro-cid-7wpgxigg>View Technical Breakdown &rarr;</span> </div> </div> </a> </div> </div> </article><article class="project-slide slide-security" id="slide-privadex" data-slug="privadex" data-index="5" data-astro-cid-7wpgxigg> <div class="slide-ambient-aura" data-astro-cid-7wpgxigg></div> <div class="slide-inner-grid" data-astro-cid-7wpgxigg> <!-- Left Column: Striking Typography & Punchline --> <div class="slide-text-col" data-astro-cid-7wpgxigg> <!-- Top Metadata Row --> <div class="slide-meta-row" data-astro-cid-7wpgxigg> <span class="slide-index-badge" data-astro-cid-7wpgxigg>
+// 05 OF 06 </span> <span class="domain-pill dp-sec" data-astro-cid-7wpgxigg> 🛡️ CRYPTOGRAPHY &amp; SECURITY </span>  </div> <!-- Project Title with Striking Display Typography --> <h2 class="slide-title" data-astro-cid-7wpgxigg> <a href="/work/privadex/" class="title-link" data-astro-cid-7wpgxigg> PrivaDEX </a> </h2> <!-- One Massive, Punchy Sentence per Project --> <div class="punchline-wrapper" data-astro-cid-7wpgxigg> <p class="slide-punchline" data-astro-cid-7wpgxigg> Matches crossing financial orders directly over homomorphically encrypted payloads, preventing order front-running and dark-pool information leakage. </p> </div> <!-- Interactive Tech Stack Tags --> <div class="slide-tags-row" data-astro-cid-7wpgxigg> <span class="interactive-tag tag-glow-sec" data-astro-cid-7wpgxigg> C++ </span><span class="interactive-tag tag-glow-sec" data-astro-cid-7wpgxigg> Python </span><span class="interactive-tag tag-glow-sec" data-astro-cid-7wpgxigg> Microsoft SEAL </span><span class="interactive-tag tag-glow-sec" data-astro-cid-7wpgxigg> gRPC </span><span class="interactive-tag tag-glow-sec" data-astro-cid-7wpgxigg> CMake </span><span class="interactive-tag tag-glow-sec" data-astro-cid-7wpgxigg> pytest </span> </div> <!-- Clear Action Bar --> <div class="slide-actions-bar" data-astro-cid-7wpgxigg> <a href="/work/privadex/" class="btn-deep-dive" data-astro-cid-7wpgxigg> <span data-astro-cid-7wpgxigg>Explore Architecture &amp; Deep Dive</span> <span class="btn-arrow" data-astro-cid-7wpgxigg>&rarr;</span> </a>  <a href="https://github.com/raghavpathak30/PRIVAdex" target="_blank" rel="noreferrer" class="btn-github-link" title="Open GitHub Repository" data-astro-cid-7wpgxigg> <span data-astro-cid-7wpgxigg>GitHub ↗</span> </a> </div> </div> <!-- Right Column: Visual System Hologram & Architecture Preview Graphic --> <div class="slide-visual-col" data-astro-cid-7wpgxigg> <a href="/work/privadex/" class="visual-card-link" aria-label="View PrivaDEX deep dive" data-astro-cid-7wpgxigg> <div class="hologram-card" data-astro-cid-7wpgxigg> <div class="hc-header" data-astro-cid-7wpgxigg> <span class="hc-status-dot hcsd-sec" data-astro-cid-7wpgxigg></span> <span class="hc-id" data-astro-cid-7wpgxigg>SYSTEM::PRIVADEX</span> <span class="hc-type" data-astro-cid-7wpgxigg>PROVABLE COMPUTE</span> </div> <!-- Dynamic Visual Telemetry Windows per Project --> <div class="hc-graphic-canvas" data-astro-cid-7wpgxigg>     <div class="code-telemetry-window" data-astro-cid-7wpgxigg> <div class="ctw-bar" data-astro-cid-7wpgxigg> <span class="ctw-file" data-astro-cid-7wpgxigg>matching_engine_bench.cpp</span> <span class="ctw-status text-cyan" data-astro-cid-7wpgxigg>DEPTH 4</span> </div> <pre class="ctw-code" data-astro-cid-7wpgxigg><code data-astro-cid-7wpgxigg><span class="text-quiet" data-astro-cid-7wpgxigg>Engine:</span>    Dual-Scheme (BFV + CKKS)
+<span class="text-quiet" data-astro-cid-7wpgxigg>Layout:</span>    Stride 512, Degree 16,384 (16 orders/batch)
+<span class="text-quiet" data-astro-cid-7wpgxigg>Equality:</span>  BFV modular polynomial matching
+<span class="text-quiet" data-astro-cid-7wpgxigg>Sign:</span>      CKKS degree-27 continuous approximation
+<span class="text-quiet" data-astro-cid-7wpgxigg>Latency:</span>   mean 38.53 ms (p99 45.16 ms vs 150 ms gate)</code></pre> </div>  </div> <div class="hc-footer" data-astro-cid-7wpgxigg> <span class="hc-subtext" data-astro-cid-7wpgxigg>BFV Price Crossing &amp; SIMD Slot Blinding</span> <span class="hc-cta-hint" data-astro-cid-7wpgxigg>View Technical Breakdown &rarr;</span> </div> </div> </a> </div> </div> </article><article class="project-slide slide-ai" id="slide-pwnbot" data-slug="pwnbot" data-index="6" data-astro-cid-7wpgxigg> <div class="slide-ambient-aura" data-astro-cid-7wpgxigg></div> <div class="slide-inner-grid" data-astro-cid-7wpgxigg> <!-- Left Column: Striking Typography & Punchline --> <div class="slide-text-col" data-astro-cid-7wpgxigg> <!-- Top Metadata Row --> <div class="slide-meta-row" data-astro-cid-7wpgxigg> <span class="slide-index-badge" data-astro-cid-7wpgxigg>
+// 06 OF 06 </span> <span class="domain-pill dp-ai" data-astro-cid-7wpgxigg> ✦ AI ENGINEERING &amp; LLMs </span>  </div> <!-- Project Title with Striking Display Typography --> <h2 class="slide-title" data-astro-cid-7wpgxigg> <a href="/work/pwnbot/" class="title-link" data-astro-cid-7wpgxigg> PwnBot </a> </h2> <!-- One Massive, Punchy Sentence per Project --> <div class="punchline-wrapper" data-astro-cid-7wpgxigg> <p class="slide-punchline" data-astro-cid-7wpgxigg> Converts natural-language security goals into sandboxed CLI tool execution sequences with strict scope-boundary guards and deterministic stdout parsers. </p> </div> <!-- Interactive Tech Stack Tags --> <div class="slide-tags-row" data-astro-cid-7wpgxigg> <span class="interactive-tag tag-glow-ai" data-astro-cid-7wpgxigg> Python </span><span class="interactive-tag tag-glow-ai" data-astro-cid-7wpgxigg> Groq </span><span class="interactive-tag tag-glow-ai" data-astro-cid-7wpgxigg> Rich </span><span class="interactive-tag tag-glow-ai" data-astro-cid-7wpgxigg> DuckDuckGo </span><span class="interactive-tag tag-glow-ai" data-astro-cid-7wpgxigg> nmap </span><span class="interactive-tag tag-glow-ai" data-astro-cid-7wpgxigg> pytest </span> </div> <!-- Clear Action Bar --> <div class="slide-actions-bar" data-astro-cid-7wpgxigg> <a href="/work/pwnbot/" class="btn-deep-dive" data-astro-cid-7wpgxigg> <span data-astro-cid-7wpgxigg>Explore Architecture &amp; Deep Dive</span> <span class="btn-arrow" data-astro-cid-7wpgxigg>&rarr;</span> </a>  <a href="https://github.com/raghavpathak30/PwnBot" target="_blank" rel="noreferrer" class="btn-github-link" title="Open GitHub Repository" data-astro-cid-7wpgxigg> <span data-astro-cid-7wpgxigg>GitHub ↗</span> </a> </div> </div> <!-- Right Column: Visual System Hologram & Architecture Preview Graphic --> <div class="slide-visual-col" data-astro-cid-7wpgxigg> <a href="/work/pwnbot/" class="visual-card-link" aria-label="View PwnBot deep dive" data-astro-cid-7wpgxigg> <div class="hologram-card" data-astro-cid-7wpgxigg> <div class="hc-header" data-astro-cid-7wpgxigg> <span class="hc-status-dot hcsd-ai" data-astro-cid-7wpgxigg></span> <span class="hc-id" data-astro-cid-7wpgxigg>SYSTEM::PWNBOT</span> <span class="hc-type" data-astro-cid-7wpgxigg>NEURAL AGENT</span> </div> <!-- Dynamic Visual Telemetry Windows per Project --> <div class="hc-graphic-canvas" data-astro-cid-7wpgxigg>      <div class="code-telemetry-window" data-astro-cid-7wpgxigg> <div class="ctw-bar" data-astro-cid-7wpgxigg> <span class="ctw-file" data-astro-cid-7wpgxigg>agent_scope_guard.py</span> <span class="ctw-status text-emerald" data-astro-cid-7wpgxigg>SANDBOXED</span> </div> <pre class="ctw-code" data-astro-cid-7wpgxigg><code data-astro-cid-7wpgxigg><span class="text-quiet" data-astro-cid-7wpgxigg>Runner:</span>    subprocess.run(shell=False, shlex.split)
+<span class="text-quiet" data-astro-cid-7wpgxigg>Guard:</span>     Scope enforcement: 10.0.0.0/24 (Target verified)
+<span class="text-quiet" data-astro-cid-7wpgxigg>Dispatch:</span>  nmap -sV -sC -oX - (Structured XML parsed)
+<span class="text-quiet" data-astro-cid-7wpgxigg>Tests:</span>     32 unit tests passing (100% boundary check)</code></pre> </div> </div> <div class="hc-footer" data-astro-cid-7wpgxigg> <span class="hc-subtext" data-astro-cid-7wpgxigg>Scope-Boundary Enforcement &amp; CLI Parsers</span> <span class="hc-cta-hint" data-astro-cid-7wpgxigg>View Technical Breakdown &rarr;</span> </div> </div> </a> </div> </div> </article> </div> </section> <script>
+  (function() {
+    // Dynamic Scroll Observer & Active State Controller
+    var slides = document.querySelectorAll('.project-slide');
+    var railDots = document.querySelectorAll('.rail-dot');
+    var progressBar = document.getElementById('rail-progress-bar');
+    var counterEl = document.getElementById('active-project-counter');
+    var totalSlides = slides.length;
+
+    function updateActiveSlide(slug, index) {
+      railDots.forEach(function(dot) {
+        if (dot.getAttribute('data-slug') === slug) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+
+      if (progressBar) {
+        var pct = ((index - 1) / Math.max(1, totalSlides - 1)) * 100;
+        progressBar.style.height = pct + '%';
+      }
+
+      if (counterEl) {
+        counterEl.textContent = String(index).padStart(2, '0') + ' / ' + String(totalSlides).padStart(2, '0');
+      }
+    }
+
+    // IntersectionObserver with threshold for fluid snap-reveal transitions
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.35) {
+            entry.target.classList.add('in-view');
+            var slug = entry.target.getAttribute('data-slug');
+            var idx = parseInt(entry.target.getAttribute('data-index') || '1', 10);
+            updateActiveSlide(slug, idx);
+          } else if (!entry.isIntersecting) {
+            entry.target.classList.remove('in-view');
+          }
+        });
+      }, {
+        threshold: [0.15, 0.35, 0.65],
+      });
+
+      slides.forEach(function(slide) {
+        observer.observe(slide);
+      });
+    }
+
+    // Keyboard navigation (Arrow Down / Up, PageDown / PageUp)
+    window.addEventListener('keydown', function(e) {
+      // Don't intercept if user is inside an input or terminal
+      if (['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) return;
+      if (document.documentElement.getAttribute('data-mode') === 'terminal') return;
+
+      var currentIdx = 0;
+      var activeDot = document.querySelector('.rail-dot.active');
+      if (activeDot) {
+        currentIdx = parseInt(activeDot.getAttribute('data-idx') || '0', 10);
+      }
+
+      if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+        if (currentIdx < totalSlides - 1) {
+          e.preventDefault();
+          var nextSlide = slides[currentIdx + 1];
+          if (nextSlide) nextSlide.scrollIntoView({ behavior: 'smooth' });
+        }
+      } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+        if (currentIdx > 0) {
+          e.preventDefault();
+          var prevSlide = slides[currentIdx - 1];
+          if (prevSlide) prevSlide.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    });
+  })();
+</script>  <!-- Modern Cyber Footer --> <footer class="cyber-footer" data-astro-cid-j7pv25f6> <div class="footer-container" data-astro-cid-j7pv25f6> <div class="footer-brand-block" data-astro-cid-j7pv25f6> <div class="footer-name" data-astro-cid-j7pv25f6>RAGHAV PATHAK</div> <p class="footer-role" data-astro-cid-j7pv25f6>AI Systems &amp; Applied Cryptography Engineer</p> <div class="footer-meta-pill" data-astro-cid-j7pv25f6> <span class="fmp-dot" data-astro-cid-j7pv25f6></span> B.Tech CSE, LNMIIT Jaipur (2027)
+</div> </div> <div class="footer-nav-grid" data-astro-cid-j7pv25f6> <div class="f-col" data-astro-cid-j7pv25f6> <span class="f-title" data-astro-cid-j7pv25f6>Showcase Systems</span> <a href="/work/dispute-desk/" class="f-item" data-astro-cid-j7pv25f6>Dispute Desk (Razorpay AI)</a> <a href="/work/ppfdaas/" class="f-item" data-astro-cid-j7pv25f6>PPFDaaS (Confidential AI)</a> <a href="/work/reachability-triage/" class="f-item" data-astro-cid-j7pv25f6>reachability-triage (AST)</a> <a href="/work/setuguard/" class="f-item" data-astro-cid-j7pv25f6>SetuGuard (IIT Hyderabad)</a> <a href="/work/privadex/" class="f-item" data-astro-cid-j7pv25f6>PrivaDEX (ZK Matching)</a> <a href="/work/pwnbot/" class="f-item" data-astro-cid-j7pv25f6>PwnBot (Agent)</a> </div> <div class="f-col" data-astro-cid-j7pv25f6> <span class="f-title" data-astro-cid-j7pv25f6>Navigation</span> <a href="/resume/" class="f-item" data-astro-cid-j7pv25f6>Interactive Resume</a> <a href="/raghav_pathak_resume.pdf" download="Raghav_Pathak_Resume.pdf" class="f-item" data-astro-cid-j7pv25f6>Download PDF Resume 📥</a> <a href="/work/" class="f-item" data-astro-cid-j7pv25f6>All Projects Directory</a> <a href="/writing/measurement-note/" class="f-item" data-astro-cid-j7pv25f6>Measurement Provenance</a> </div> <div class="f-col" data-astro-cid-j7pv25f6> <span class="f-title" data-astro-cid-j7pv25f6>Connect</span> <a href="https://github.com/raghavpathak30" target="_blank" rel="noreferrer" class="f-item" data-astro-cid-j7pv25f6>GitHub ↗</a> <a href="https://www.linkedin.com/in/raghav-pathak-b14b46282" target="_blank" rel="noreferrer" class="f-item" data-astro-cid-j7pv25f6>LinkedIn ↗</a> <a href="mailto:raghavpathak30@gmail.com" class="f-item" data-astro-cid-j7pv25f6>Email ↗</a> </div> </div> </div> <div class="footer-bottom" data-astro-cid-j7pv25f6> <span data-astro-cid-j7pv25f6>&copy; 2026 Raghav Pathak</span> <div class="footer-quick-toggles" data-astro-cid-j7pv25f6> <button type="button" class="btn-f-mode" onclick="window.setPortfolioMode('terminal')" data-astro-cid-j7pv25f6>&gt;_ Terminal View</button> <button type="button" class="btn-f-mode" onclick="window.cycleTheme()" data-astro-cid-j7pv25f6>🎨 Theme</button> </div> </div> </footer> </section> </main>  </body></html> 
