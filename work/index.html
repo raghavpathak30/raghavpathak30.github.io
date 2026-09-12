@@ -1,227 +1,341 @@
-<!DOCTYPE html><html lang="en" data-astro-cid-37fxchfa> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Security systems, homomorphic encryption engines, and static reachability tools."><link rel="canonical" href="https://raghavpathak.me/work/"><meta property="og:title" content="Projects | Raghav Pathak"><meta property="og:description" content="Security systems, homomorphic encryption engines, and static reachability tools."><meta property="og:url" content="https://raghavpathak.me/work/"><meta property="og:type" content="website"><meta property="og:image" content="https://raghavpathak.me/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><title>Projects | Raghav Pathak</title><link rel="stylesheet" href="/_astro/about.CEhJTLS2.css">
-<link rel="stylesheet" href="/_astro/index.DJRLXO37.css"></head> <body data-astro-cid-37fxchfa> <div class="interactive-bg-wrapper" id="interactive-bg-wrapper" aria-hidden="true" data-astro-cid-t4ic7t5r> <!-- Warm Architectural Micro-Grid --> <div class="ambient-grid-overlay" data-astro-cid-t4ic7t5r></div> <!-- Warm Breathing Ambient Aurora Meshes --> <div class="ambient-aurora-glow glow-terracotta" data-astro-cid-t4ic7t5r></div> <div class="ambient-aurora-glow glow-indigo" data-astro-cid-t4ic7t5r></div> <div class="ambient-aurora-glow glow-sage" data-astro-cid-t4ic7t5r></div> <!-- Interactive Dual-Domain Constellation Canvas --> <canvas id="ambient-canvas" class="ambient-canvas" data-astro-cid-t4ic7t5r></canvas> </div> <script>
+<!DOCTYPE html><html lang="en" data-astro-cid-37fxchfa> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Security systems, homomorphic encryption engines, and static reachability tools."><link rel="canonical" href="https://raghavpathak.me/work/"><meta property="og:title" content="Projects | Raghav Pathak"><meta property="og:description" content="Security systems, homomorphic encryption engines, and static reachability tools."><meta property="og:url" content="https://raghavpathak.me/work/"><meta property="og:type" content="website"><meta property="og:image" content="https://raghavpathak.me/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><title>Projects | Raghav Pathak</title><link rel="stylesheet" href="/_astro/about.COLpCr-V.css">
+<link rel="stylesheet" href="/_astro/index.YWBr82vt.css"></head> <body data-astro-cid-37fxchfa> <div id="boot-overlay" class="boot-overlay" aria-hidden="true" data-astro-cid-qozdfemc> <div class="boot-scan-line" id="boot-scan-line" data-astro-cid-qozdfemc></div> <div class="boot-grid" data-astro-cid-qozdfemc> <div class="boot-main" data-astro-cid-qozdfemc> <div class="boot-emblem" data-astro-cid-qozdfemc> <span class="boot-emblem-dot" data-astro-cid-qozdfemc></span> <span class="boot-emblem-name" data-astro-cid-qozdfemc>RAGHAV PATHAK</span> </div> <div class="boot-scramble-line" id="boot-scramble-line" data-astro-cid-qozdfemc>INITIALIZING</div> <div class="boot-progress-wrapper" data-astro-cid-qozdfemc> <div class="boot-progress-track" data-astro-cid-qozdfemc> <div class="boot-progress-bar" id="boot-progress-bar" data-astro-cid-qozdfemc></div> </div> <div class="boot-counter" id="boot-counter" data-astro-cid-qozdfemc>0%</div> </div> </div> <div class="boot-log" id="boot-log" aria-hidden="true" data-astro-cid-qozdfemc></div> </div> </div> <script>
   (function() {
-    var canvas = document.getElementById('ambient-canvas');
-    if (!canvas) return;
+    var overlay = document.getElementById('boot-overlay');
+    if (!overlay) return;
 
-    var ctx = canvas.getContext('2d');
-    if (!ctx) return;
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    var width = 0;
-    var height = 0;
-    var animationFrameId = null;
+    var hasBooted = false;
+    try {
+      hasBooted = sessionStorage.getItem('portfolio_boot_seen') === 'true';
+    } catch (e) {}
 
-    // Smooth mouse position tracking with physics spring
-    var mouse = {
-      x: -2000,
-      y: -2000,
-      targetX: -2000,
-      targetY: -2000,
-      radius: 175,
-      isActive: false
-    };
+    var urlParams = new URLSearchParams(window.location.search);
+    var forceReboot = urlParams.get('reboot') === 'true';
 
-    function resize() {
-      var dpr = Math.min(window.devicePixelRatio || 1, 2);
-      width = canvas.width = window.innerWidth * dpr;
-      height = canvas.height = window.innerHeight * dpr;
-      canvas.style.width = window.innerWidth + 'px';
-      canvas.style.height = window.innerHeight + 'px';
-      ctx.scale(dpr, dpr);
+    if ((hasBooted && !forceReboot) || reduceMotion) {
+      overlay.style.display = 'none';
+      try { sessionStorage.setItem('portfolio_boot_seen', 'true'); } catch (e) {}
+      return;
     }
-    resize();
-    window.addEventListener('resize', resize, { passive: true });
 
-    window.addEventListener('mousemove', function(e) {
-      mouse.targetX = e.clientX;
-      mouse.targetY = e.clientY;
-      mouse.isActive = true;
-    }, { passive: true });
+    overlay.style.display = 'flex';
 
-    window.addEventListener('mouseleave', function() {
-      mouse.targetX = -2000;
-      mouse.targetY = -2000;
-      mouse.isActive = false;
-    }, { passive: true });
+    var scrambleEl = document.getElementById('boot-scramble-line');
+    var barEl = document.getElementById('boot-progress-bar');
+    var counterEl = document.getElementById('boot-counter');
+    var logEl = document.getElementById('boot-log');
 
-    // Touch support for interactive mobile canvas
-    window.addEventListener('touchmove', function(e) {
-      if (e.touches.length > 0) {
-        mouse.targetX = e.touches[0].clientX;
-        mouse.targetY = e.touches[0].clientY;
-        mouse.isActive = true;
-      }
-    }, { passive: true });
+    var isDone = false;
+    var startTime = performance.now();
+    var duration = 1700;
 
-    var isMobile = window.innerWidth < 768;
-    var particleCount = isMobile ? 26 : 48;
-    var particles = [];
+    var targetWords = ['DECRYPTING', 'CALIBRATING', 'SYSTEM READY'];
+    var glyphs = '0123456789ABCDEF!@#$%&*';
 
-    // Node palette: Warm Terracotta (AI/Human), Slate Indigo (Cryptography), Soft Sand (Bridge)
-    var nodeColors = [
-      { r: 224, g: 122, b: 95, type: 'terracotta', glow: 'rgba(224, 122, 95, 0.7)' }, // Warm Terracotta
-      { r: 107, g: 127, b: 196, type: 'indigo', glow: 'rgba(107, 127, 196, 0.7)' },     // Slate Indigo
-      { r: 230, g: 204, b: 178, type: 'sand', glow: 'rgba(230, 204, 178, 0.6)' },       // Soft Sand
-      { r: 139, g: 168, b: 136, type: 'sage', glow: 'rgba(139, 168, 136, 0.7)' }        // Muted Sage
+    var logLines = [
+      'INITIALIZE CORE SYSTEM',
+      'LOAD CRYPTOGRAPHIC CONTEXT',
+      'VERIFY MEASUREMENT PROVENANCE',
+      'SYNC PROJECT INDEX',
+      'CALIBRATE TIMING-SAFE PRIMITIVES',
+      'SYSTEM READY'
     ];
+    var loggedCount = 0;
 
-    for (var i = 0; i < particleCount; i++) {
-      var colorObj = nodeColors[i % nodeColors.length];
-      var isSpecial = i % 4 === 0;
-      particles.push({
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * window.innerHeight,
-        vx: (Math.random() - 0.5) * 0.45,
-        vy: (Math.random() - 0.5) * 0.45,
-        baseRadius: isSpecial ? 2.8 : (Math.random() * 1.5 + 1.6),
-        alpha: Math.random() * 0.3 + 0.55, // Distinct, visible alpha (0.55 - 0.85)
-        color: colorObj,
-        isSpecial: isSpecial,
-        pulseOffset: Math.random() * Math.PI * 2
-      });
+    function appendLogLines(upTo) {
+      while (loggedCount < upTo && loggedCount < logLines.length) {
+        var line = document.createElement('div');
+        line.className = 'boot-log-line';
+        var idx = document.createElement('span');
+        idx.className = 'boot-log-idx';
+        idx.textContent = String(loggedCount + 1).padStart(3, '0');
+        var text = document.createElement('span');
+        text.textContent = logLines[loggedCount];
+        line.appendChild(idx);
+        line.appendChild(text);
+        if (logEl) logEl.appendChild(line);
+        loggedCount++;
+      }
     }
 
-    var time = 0;
+    function finish() {
+      if (isDone) return;
+      isDone = true;
 
-    function render() {
-      var displayWidth = window.innerWidth;
-      var displayHeight = window.innerHeight;
-      ctx.clearRect(0, 0, displayWidth, displayHeight);
-      time += 0.02;
+      if (barEl) barEl.style.width = '100%';
+      if (counterEl) counterEl.textContent = '100%';
+      if (scrambleEl) scrambleEl.textContent = 'SYSTEM READY';
+      appendLogLines(logLines.length);
 
-      // Fluid mouse lerping
-      mouse.x += (mouse.targetX - mouse.x) * 0.08;
-      mouse.y += (mouse.targetY - mouse.y) * 0.08;
+      try {
+        sessionStorage.setItem('portfolio_boot_seen', 'true');
+      } catch (e) {}
 
-      var mode = document.documentElement.getAttribute('data-mode') || 'gui';
-      var isTerminal = mode === 'terminal';
-      var globalAlphaMul = isTerminal ? 0.4 : 1.0;
-
-      // Soft ambient light wash around cursor
-      if (mouse.isActive && mouse.x > 0 && mouse.y > 0 && !isTerminal) {
-        var radGrad = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 220);
-        radGrad.addColorStop(0, 'rgba(224, 122, 95, 0.07)');
-        radGrad.addColorStop(0.5, 'rgba(107, 127, 196, 0.04)');
-        radGrad.addColorStop(1, 'transparent');
-        ctx.fillStyle = radGrad;
-        ctx.fillRect(0, 0, displayWidth, displayHeight);
-      }
-
-      var maxConnectDist = isMobile ? 115 : 155;
-      var maxConnectDistSq = maxConnectDist * maxConnectDist;
-
-      // Draw connection lines first (behind particles)
-      for (var i = 0; i < particles.length; i++) {
-        var p1 = particles[i];
-
-        for (var j = i + 1; j < particles.length; j++) {
-          var p2 = particles[j];
-          var dx = p1.x - p2.x;
-          var dy = p1.y - p2.y;
-          var distSq = dx * dx + dy * dy;
-
-          if (distSq < maxConnectDistSq) {
-            var cDist = Math.sqrt(distSq);
-            var factor = 1 - cDist / maxConnectDist;
-            
-            // Check if near mouse for dynamic brightness amplification
-            var midX = (p1.x + p2.x) * 0.5;
-            var midY = (p1.y + p2.y) * 0.5;
-            var mdx = midX - mouse.x;
-            var mdy = midY - mouse.y;
-            var mDist = Math.sqrt(mdx * mdx + mdy * mdy);
-            var mouseBoost = (mDist < mouse.radius) ? (1 - mDist / mouse.radius) * 0.35 : 0;
-
-            // Highly visible line alpha (0.18 - 0.42 with mouse boost)
-            var lineAlpha = (factor * 0.22 + mouseBoost) * globalAlphaMul;
-
-            ctx.beginPath();
-            ctx.moveTo(p1.x, p1.y);
-            ctx.lineTo(p2.x, p2.y);
-            
-            // Subtle dual-tone line blending
-            if (p1.color.type === 'terracotta' || p2.color.type === 'terracotta') {
-              ctx.strokeStyle = 'rgba(224, 122, 95, ' + lineAlpha + ')';
-            } else {
-              ctx.strokeStyle = 'rgba(107, 127, 196, ' + lineAlpha + ')';
-            }
-            ctx.lineWidth = mouseBoost > 0 ? 1.3 : 0.95;
-            ctx.stroke();
-          }
-        }
-      }
-
-      // Update and draw luminescent nodes
-      for (var i = 0; i < particles.length; i++) {
-        var p = particles[i];
-
-        // Organic drift
-        p.x += p.vx;
-        p.y += p.vy;
-
-        // Smooth wrapping with boundary margin
-        if (p.x < -20) p.x = displayWidth + 20;
-        else if (p.x > displayWidth + 20) p.x = -20;
-        if (p.y < -20) p.y = displayHeight + 20;
-        else if (p.y > displayHeight + 20) p.y = -20;
-
-        // Fluid cursor repulsion
-        var cdx = p.x - mouse.x;
-        var cdy = p.y - mouse.y;
-        var dist = Math.sqrt(cdx * cdx + cdy * cdy);
-        if (dist < mouse.radius && dist > 0) {
-          var force = (mouse.radius - dist) / mouse.radius;
-          p.x += (cdx / dist) * force * 1.5;
-          p.y += (cdy / dist) * force * 1.5;
-        }
-
-        var breathing = Math.sin(time + p.pulseOffset) * 0.3;
-        var curRadius = p.baseRadius + breathing;
-        var curAlpha = Math.min(1.0, (p.alpha + breathing * 0.15) * globalAlphaMul);
-
-        // Draw outer glowing halo
-        ctx.save();
-        ctx.shadowBlur = p.isSpecial ? 12 : 7;
-        ctx.shadowColor = p.color.glow;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, curRadius, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(' + p.color.r + ', ' + p.color.g + ', ' + p.color.b + ', ' + curAlpha + ')';
-        ctx.fill();
-
-        // Technical cross mark on special nodes
-        if (p.isSpecial && !isTerminal) {
-          var arm = 4.5;
-          ctx.strokeStyle = 'rgba(247, 244, 238, ' + (curAlpha * 0.6) + ')';
-          ctx.lineWidth = 1;
-          ctx.beginPath();
-          ctx.moveTo(p.x - arm, p.y);
-          ctx.lineTo(p.x + arm, p.y);
-          ctx.moveTo(p.x, p.y - arm);
-          ctx.lineTo(p.x, p.y + arm);
-          ctx.stroke();
-        }
-
-        ctx.restore();
-      }
-
-      animationFrameId = requestAnimationFrame(render);
+      overlay.classList.add('boot-fade-out');
+      setTimeout(function() {
+        overlay.style.display = 'none';
+      }, 350);
     }
 
-    document.addEventListener('visibilitychange', function() {
-      if (document.hidden) {
-        if (animationFrameId) cancelAnimationFrame(animationFrameId);
+    function frame(now) {
+      if (isDone) return;
+      var elapsed = now - startTime;
+      var progress = Math.min(elapsed / duration, 1);
+
+      var ease = 1 - Math.pow(1 - progress, 2);
+      var currentPct = Math.floor(ease * 100);
+
+      if (barEl) barEl.style.width = currentPct + '%';
+      if (counterEl) counterEl.textContent = currentPct + '%';
+
+      appendLogLines(Math.ceil(progress * logLines.length));
+
+      var wordIndex = Math.min(Math.floor(progress * targetWords.length), targetWords.length - 1);
+      var targetWord = targetWords[wordIndex];
+
+      if (progress >= 0.95) {
+        if (scrambleEl) scrambleEl.textContent = 'SYSTEM READY';
+      } else if (Math.random() < 0.35 && scrambleEl) {
+        var scrambled = '';
+        for (var i = 0; i < targetWord.length; i++) {
+          scrambled += Math.random() < 0.4 ? glyphs[Math.floor(Math.random() * glyphs.length)] : targetWord[i];
+        }
+        scrambleEl.textContent = scrambled;
+      }
+
+      if (progress < 1) {
+        requestAnimationFrame(frame);
       } else {
-        animationFrameId = requestAnimationFrame(render);
+        setTimeout(finish, 200);
+      }
+    }
+
+    requestAnimationFrame(frame);
+
+    overlay.addEventListener('click', finish);
+    window.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' || e.code === 'Escape') {
+        finish();
+      }
+    });
+  })();
+</script>  <div class="interactive-bg-wrapper" id="interactive-bg-wrapper" aria-hidden="true" data-astro-cid-t4ic7t5r> <div class="paper-vignette" data-astro-cid-t4ic7t5r></div> <div class="paper-grain" data-astro-cid-t4ic7t5r></div> <div class="lantern-glow" id="lantern-glow" data-astro-cid-t4ic7t5r></div> </div> <script>
+  (function() {
+    var lantern = document.getElementById('lantern-glow');
+    var wrapper = document.getElementById('interactive-bg-wrapper');
+    if (!lantern || !wrapper) return;
+
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var canHover = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    // --- Warm lantern light, gently trailing the cursor ---
+    if (canHover && !reduceMotion) {
+      var lx = window.innerWidth / 2;
+      var ly = window.innerHeight * 0.35;
+      var tx = lx;
+      var ty = ly;
+      var rafId = null;
+
+      window.addEventListener('mousemove', function(e) {
+        tx = e.clientX;
+        ty = e.clientY;
+        lantern.classList.add('is-lit');
+      }, { passive: true });
+
+      window.addEventListener('mouseleave', function() {
+        lantern.classList.remove('is-lit');
+      }, { passive: true });
+
+      function tick() {
+        lx += (tx - lx) * 0.045;
+        ly += (ty - ly) * 0.045;
+        lantern.style.transform = 'translate3d(' + (lx - 260) + 'px, ' + (ly - 260) + 'px, 0)';
+        rafId = requestAnimationFrame(tick);
+      }
+
+      document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+          if (rafId) cancelAnimationFrame(rafId);
+          rafId = null;
+        } else if (!rafId) {
+          rafId = requestAnimationFrame(tick);
+        }
+      });
+
+      rafId = requestAnimationFrame(tick);
+    } else {
+      lantern.style.display = 'none';
+    }
+
+    // --- Slow parallax drift on the paper grain as the page scrolls ---
+    if (!reduceMotion) {
+      var ticking = false;
+      window.addEventListener('scroll', function() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function() {
+          var offset = window.scrollY * 0.035;
+          wrapper.style.setProperty('--parallax-y', offset.toFixed(1) + 'px');
+          ticking = false;
+        });
+      }, { passive: true });
+    }
+  })();
+</script>   <div class="site-layout" data-astro-cid-57l5znwr> <!-- ============================================== --><!-- 1. MOBILE TOP STICKY BAR (< 1024px)           --><!-- ============================================== --><header class="mobile-header" aria-label="Mobile Header" data-astro-cid-gvqsdny3> <div class="mobile-brand-group" data-astro-cid-gvqsdny3> <a href="/" class="mobile-brand-name" data-astro-cid-gvqsdny3>RAGHAV PATHAK</a> <span class="mobile-status-indicator" title="LNMIIT Jaipur · 2027" data-astro-cid-gvqsdny3> <span class="status-live-dot" data-astro-cid-gvqsdny3></span> </span> </div> <div class="mobile-header-actions" data-astro-cid-gvqsdny3> <!-- Elevated Quick Resume Pill (Instant 1-Tap Access on Mobile) --> <a href="/resume/" class="mobile-resume-pill" title="View Interactive Resume" data-astro-cid-gvqsdny3> <span class="resume-pill-icon" data-astro-cid-gvqsdny3>📄</span> <span class="resume-pill-text" data-astro-cid-gvqsdny3>Resume</span> </a> <!-- Hamburger Toggle Button --> <button type="button" class="mobile-drawer-trigger" id="mobile-drawer-trigger" aria-label="Toggle navigation drawer" aria-expanded="false" aria-controls="mobile-nav-drawer" data-astro-cid-gvqsdny3> <span class="hbg-line hbg-line-1" data-astro-cid-gvqsdny3></span> <span class="hbg-line hbg-line-2" data-astro-cid-gvqsdny3></span> <span class="hbg-line hbg-line-3" data-astro-cid-gvqsdny3></span> </button> </div> </header> <!-- Mobile Drawer Backdrop Overlay --> <div class="mobile-drawer-backdrop" id="mobile-drawer-backdrop" aria-hidden="true" data-astro-cid-gvqsdny3></div> <!-- Mobile Slide-Out Drawer --> <aside class="mobile-nav-drawer" id="mobile-nav-drawer" aria-label="Navigation Drawer" aria-hidden="true" data-astro-cid-gvqsdny3> <div class="drawer-header" data-astro-cid-gvqsdny3> <div class="drawer-brand-block" data-astro-cid-gvqsdny3> <div class="drawer-brand-title" data-astro-cid-gvqsdny3>RAGHAV PATHAK</div> <div class="drawer-brand-role" data-astro-cid-gvqsdny3>AI Systems &amp; Applied Cryptography</div> <div class="drawer-meta-pill" data-astro-cid-gvqsdny3> <span class="status-live-dot" data-astro-cid-gvqsdny3></span> B.Tech CSE · LNMIIT '27
+</div> </div> <button type="button" class="drawer-close-btn" id="drawer-close-btn" aria-label="Close navigation drawer" data-astro-cid-gvqsdny3> <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-gvqsdny3> <line x1="18" y1="6" x2="6" y2="18" data-astro-cid-gvqsdny3></line> <line x1="6" y1="6" x2="18" y2="18" data-astro-cid-gvqsdny3></line> </svg> </button> </div> <div class="drawer-body" data-astro-cid-gvqsdny3> <!-- Primary Navigation Links (Large Touch Targets >= 48px) --> <nav class="drawer-nav-group" aria-label="Mobile Navigation" data-astro-cid-gvqsdny3> <span class="nav-group-label" data-astro-cid-gvqsdny3>NAVIGATION</span> <a href="/" class="drawer-nav-item js-drawer-link" data-astro-cid-gvqsdny3> <span class="item-icon" data-astro-cid-gvqsdny3>&gt;_</span> <span class="item-label" data-astro-cid-gvqsdny3>Terminal Home</span> </a> <a href="/work/#skills-stack" class="drawer-nav-item js-drawer-link" data-astro-cid-gvqsdny3> <span class="item-icon" data-astro-cid-gvqsdny3>⚙</span> <span class="item-label" data-astro-cid-gvqsdny3>Technical Skills &amp; Crypto</span> </a> <a href="/work/#project-showcase" class="drawer-nav-item js-drawer-link" data-astro-cid-gvqsdny3> <span class="item-icon" data-astro-cid-gvqsdny3>⚡</span> <span class="item-label" data-astro-cid-gvqsdny3>Systems Showcase</span> </a> <a href="/resume/" class="drawer-nav-item drawer-nav-item-resume js-drawer-link" data-astro-cid-gvqsdny3> <span class="item-icon" data-astro-cid-gvqsdny3>📄</span> <span class="item-label" data-astro-cid-gvqsdny3>Interactive Resume</span> <span class="badge-accent" data-astro-cid-gvqsdny3>VIEW</span> </a> <a href="/raghav_pathak_resume.pdf" download="Raghav_Pathak_Resume.pdf" class="drawer-nav-item js-drawer-link" data-astro-cid-gvqsdny3> <span class="item-icon" data-astro-cid-gvqsdny3>📥</span> <span class="item-label" data-astro-cid-gvqsdny3>Download PDF Resume</span> </a> <a href="/work/" class="drawer-nav-item js-drawer-link" data-astro-cid-gvqsdny3> <span class="item-icon" data-astro-cid-gvqsdny3>📂</span> <span class="item-label" data-astro-cid-gvqsdny3>All Projects Directory</span> </a> <a href="/writing/measurement-note/" class="drawer-nav-item js-drawer-link" data-astro-cid-gvqsdny3> <span class="item-icon" data-astro-cid-gvqsdny3>📝</span> <span class="item-label" data-astro-cid-gvqsdny3>Measurement Provenance</span> </a> </nav> <!-- Theme Switcher in Drawer --> <div class="drawer-control-section" data-astro-cid-gvqsdny3> <span class="nav-group-label" data-astro-cid-gvqsdny3>THEME PALETTE</span> <div class="theme-grid-drawer" data-astro-cid-gvqsdny3> <button type="button" class="btn-theme-pill active" data-theme-val="modern" onclick="window.setPortfolioTheme('modern')" data-astro-cid-gvqsdny3> <span class="pill-dot dot-modern" data-astro-cid-gvqsdny3></span> Modern Warm
+</button> <button type="button" class="btn-theme-pill" data-theme-val="amber" onclick="window.setPortfolioTheme('amber')" data-astro-cid-gvqsdny3> <span class="pill-dot dot-amber" data-astro-cid-gvqsdny3></span> Amber CRT
+</button> <button type="button" class="btn-theme-pill" data-theme-val="nord" onclick="window.setPortfolioTheme('nord')" data-astro-cid-gvqsdny3> <span class="pill-dot dot-nord" data-astro-cid-gvqsdny3></span> Nord Slate
+</button> <button type="button" class="btn-theme-pill" data-theme-val="matrix" onclick="window.setPortfolioTheme('matrix')" data-astro-cid-gvqsdny3> <span class="pill-dot dot-matrix" data-astro-cid-gvqsdny3></span> Phosphor
+</button> </div> </div> <!-- External Links --> <div class="drawer-footer-links" data-astro-cid-gvqsdny3> <a href="https://github.com/raghavpathak30" target="_blank" rel="noreferrer" class="df-link" data-astro-cid-gvqsdny3>GitHub ↗</a> <a href="https://www.linkedin.com/in/raghav-pathak-b14b46282" target="_blank" rel="noreferrer" class="df-link" data-astro-cid-gvqsdny3>LinkedIn ↗</a> <a href="mailto:raghavpathak30@gmail.com" class="df-link" data-astro-cid-gvqsdny3>Email ↗</a> </div> </div> </aside> <!-- ============================================== --> <!-- 2. DESKTOP FIXED SLEEK SIDEBAR (>= 1024px)    --> <!-- ============================================== --> <aside class="desktop-sidebar" aria-label="Site Navigation" data-astro-cid-gvqsdny3> <div class="sidebar-top" data-astro-cid-gvqsdny3> <!-- Identity Block --> <div class="sidebar-brand-block" data-astro-cid-gvqsdny3> <a href="/" class="sidebar-brand-title" data-astro-cid-gvqsdny3>RAGHAV PATHAK</a> <div class="sidebar-brand-role" data-astro-cid-gvqsdny3>AI Systems &amp; Applied Cryptography</div> <div class="sidebar-status-pill" data-astro-cid-gvqsdny3> <span class="status-live-dot" data-astro-cid-gvqsdny3></span> <span class="ssp-text" data-astro-cid-gvqsdny3>LNMIIT JAIPUR · 2027</span> </div> </div> <!-- Main Navigation List --> <nav class="sidebar-nav" aria-label="Desktop Navigation" data-astro-cid-gvqsdny3> <span class="sidebar-section-label" data-astro-cid-gvqsdny3>NAVIGATION</span> <a href="/" class="sidebar-link" data-astro-cid-gvqsdny3> <span class="link-bullet" data-astro-cid-gvqsdny3>&gt;_</span> Terminal Home
+</a> <a href="/work/#skills-stack" class="sidebar-link" data-astro-cid-gvqsdny3> <span class="link-bullet" data-astro-cid-gvqsdny3>⚙</span> Skills &amp; Crypto
+</a> <a href="/work/#project-showcase" class="sidebar-link" data-astro-cid-gvqsdny3> <span class="link-bullet" data-astro-cid-gvqsdny3>⚡</span> Systems Showcase
+</a> <a href="/resume/" class="sidebar-link" data-astro-cid-gvqsdny3> <span class="link-bullet" data-astro-cid-gvqsdny3>📄</span> Interactive Resume
+</a> <a href="/work/" class="sidebar-link" data-astro-cid-gvqsdny3> <span class="link-bullet" data-astro-cid-gvqsdny3>📂</span> All Projects
+</a> <a href="/writing/measurement-note/" class="sidebar-link" data-astro-cid-gvqsdny3> <span class="link-bullet" data-astro-cid-gvqsdny3>📝</span> Provenance Note
+</a> </nav> </div> <div class="sidebar-bottom" data-astro-cid-gvqsdny3> <!-- Elevated PDF Resume Download --> <a href="/raghav_pathak_resume.pdf" download="Raghav_Pathak_Resume.pdf" class="btn-sidebar-resume" data-astro-cid-gvqsdny3> <span class="icon" data-astro-cid-gvqsdny3>📥</span> <span data-astro-cid-gvqsdny3>Download Resume (PDF)</span> </a> <!-- Theme Switcher Grid --> <div class="sidebar-controls-block" data-astro-cid-gvqsdny3> <div class="scb-label" data-astro-cid-gvqsdny3>PALETTE THEMES</div> <div class="theme-pill-grid" data-astro-cid-gvqsdny3> <button type="button" class="btn-theme active" data-theme-val="modern" onclick="window.setPortfolioTheme('modern')" title="Modern Warm Dark" data-astro-cid-gvqsdny3> <span class="pill-dot dot-modern" data-astro-cid-gvqsdny3></span> Modern
+</button> <button type="button" class="btn-theme" data-theme-val="amber" onclick="window.setPortfolioTheme('amber')" title="Amber CRT" data-astro-cid-gvqsdny3> <span class="pill-dot dot-amber" data-astro-cid-gvqsdny3></span> Amber
+</button> <button type="button" class="btn-theme" data-theme-val="nord" onclick="window.setPortfolioTheme('nord')" title="Nord Slate" data-astro-cid-gvqsdny3> <span class="pill-dot dot-nord" data-astro-cid-gvqsdny3></span> Nord
+</button> <button type="button" class="btn-theme" data-theme-val="matrix" onclick="window.setPortfolioTheme('matrix')" title="Phosphor Matrix" data-astro-cid-gvqsdny3> <span class="pill-dot dot-matrix" data-astro-cid-gvqsdny3></span> Matrix
+</button> </div> </div> <!-- Social Footing --> <div class="sidebar-social-row" data-astro-cid-gvqsdny3> <a href="https://github.com/raghavpathak30" target="_blank" rel="noreferrer" title="GitHub" data-astro-cid-gvqsdny3>GitHub ↗</a> <span class="social-sep" data-astro-cid-gvqsdny3>·</span> <a href="https://www.linkedin.com/in/raghav-pathak-b14b46282" target="_blank" rel="noreferrer" title="LinkedIn" data-astro-cid-gvqsdny3>LinkedIn ↗</a> <span class="social-sep" data-astro-cid-gvqsdny3>·</span> <a href="mailto:raghavpathak30@gmail.com" title="Email" data-astro-cid-gvqsdny3>Email ↗</a> </div> </div> </aside> <!-- Drawer Toggle Script --> <script>
+  (function() {
+    var trigger = document.getElementById('mobile-drawer-trigger');
+    var drawer = document.getElementById('mobile-nav-drawer');
+    var backdrop = document.getElementById('mobile-drawer-backdrop');
+    var closeBtn = document.getElementById('drawer-close-btn');
+
+    if (!trigger || !drawer || !backdrop) return;
+
+    function openDrawer() {
+      drawer.classList.add('open');
+      backdrop.classList.add('open');
+      trigger.setAttribute('aria-expanded', 'true');
+      drawer.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      backdrop.classList.remove('open');
+      trigger.setAttribute('aria-expanded', 'false');
+      drawer.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    trigger.addEventListener('click', function() {
+      var isOpen = drawer.classList.contains('open');
+      if (isOpen) closeDrawer();
+      else openDrawer();
+    });
+
+    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+    backdrop.addEventListener('click', closeDrawer);
+
+    // Close on escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && drawer.classList.contains('open')) {
+        closeDrawer();
       }
     });
 
-    animationFrameId = requestAnimationFrame(render);
+    // Close drawer when any internal anchor link is clicked
+    var links = drawer.querySelectorAll('.js-drawer-link');
+    links.forEach(function(link) {
+      link.addEventListener('click', function() {
+        closeDrawer();
+      });
+    });
+
   })();
-</script>   <header class="work-header" data-astro-cid-57l5znwr> <div class="top-nav" data-astro-cid-57l5znwr> <a href="/" class="back-link" data-astro-cid-57l5znwr>&larr; Return to Interactive Home</a> </div> <h1 data-astro-cid-57l5znwr>Verified Projects &amp; Systems</h1> <p class="work-sub" data-astro-cid-57l5znwr>
-6 engineering systems evaluated across multimodal LLM workflows, homomorphic inference, confidential execution, static dependency reachability, and automated security agents.
-</p> </header> <main class="work-container" data-astro-cid-57l5znwr> <div class="projects-grid" data-astro-cid-57l5znwr> <article class="project-card" data-astro-cid-mspuyifq> <header class="project-head" data-astro-cid-mspuyifq> <div class="head-main" data-astro-cid-mspuyifq> <div class="title-row" data-astro-cid-mspuyifq> <h2 data-astro-cid-mspuyifq><a href="/work/dispute-desk" data-astro-cid-mspuyifq>Dispute Desk</a></h2> <span class="status-pill status-shipped" data-astro-cid-mspuyifq> <span class="status-dot" data-astro-cid-mspuyifq></span> shipped </span> <span class="video-pill-mini" data-astro-cid-mspuyifq>▶ Video Demo</span>  </div> <p class="tagline" data-astro-cid-mspuyifq>Autonomous multimodal chargeback representment agent with zero-hallucination citation gating.</p> </div> <div class="meta" data-astro-cid-mspuyifq> <span class="period" data-astro-cid-mspuyifq>Sep 2026</span> </div> </header> <div class="stack-row" data-astro-cid-mspuyifq> <span class="tech-chip" data-astro-cid-mspuyifq>Python</span><span class="tech-chip" data-astro-cid-mspuyifq>Gemini API</span><span class="tech-chip" data-astro-cid-mspuyifq>Google AI Studio</span><span class="tech-chip" data-astro-cid-mspuyifq>FastAPI</span><span class="tech-chip" data-astro-cid-mspuyifq>Pydantic</span><span class="tech-chip" data-astro-cid-mspuyifq>Grounding Gate</span> </div>  </article> <article class="project-card" data-astro-cid-mspuyifq> <header class="project-head" data-astro-cid-mspuyifq> <div class="head-main" data-astro-cid-mspuyifq> <div class="title-row" data-astro-cid-mspuyifq> <h2 data-astro-cid-mspuyifq><a href="/work/ppfdaas" data-astro-cid-mspuyifq>PPFDaaS</a></h2> <span class="status-pill status-in-progress" data-astro-cid-mspuyifq> <span class="status-dot" data-astro-cid-mspuyifq></span> in-progress </span>   </div> <p class="tagline" data-astro-cid-mspuyifq>Privacy-preserving payment-fraud inference using CKKS homomorphic encryption.</p> </div> <div class="meta" data-astro-cid-mspuyifq> <span class="period" data-astro-cid-mspuyifq>Apr – Aug 2026</span> </div> </header> <div class="stack-row" data-astro-cid-mspuyifq> <span class="tech-chip" data-astro-cid-mspuyifq>C++</span><span class="tech-chip" data-astro-cid-mspuyifq>Python</span><span class="tech-chip" data-astro-cid-mspuyifq>Microsoft SEAL</span><span class="tech-chip" data-astro-cid-mspuyifq>gRPC</span><span class="tech-chip" data-astro-cid-mspuyifq>Docker</span><span class="tech-chip" data-astro-cid-mspuyifq>CMake</span> </div>  </article> <article class="project-card" data-astro-cid-mspuyifq> <header class="project-head" data-astro-cid-mspuyifq> <div class="head-main" data-astro-cid-mspuyifq> <div class="title-row" data-astro-cid-mspuyifq> <h2 data-astro-cid-mspuyifq><a href="/work/reachability-triage" data-astro-cid-mspuyifq>reachability-triage</a></h2> <span class="status-pill status-in-progress" data-astro-cid-mspuyifq> <span class="status-dot" data-astro-cid-mspuyifq></span> in-progress </span>  <a href="https://raghavpathak30.github.io/Books/reachability-triage/" target="_blank" class="study-pill" title="Read generated mdBook Study Guide" data-astro-cid-mspuyifq>
+</script>  <div class="main-content-viewport" data-astro-cid-57l5znwr> <header class="work-header" data-reveal data-astro-cid-57l5znwr> <span class="ssh-eyebrow" data-astro-cid-57l5znwr>PROJECTS</span> <h1 class="ssh-title" data-astro-cid-57l5znwr>Things I've built and shipped</h1> <p class="work-sub" data-astro-cid-57l5znwr>
+Six systems, each measured and working. Click into any one for the technical breakdown.
+</p> </header> <main class="work-container" data-astro-cid-57l5znwr> <div class="bench-demo" data-reveal data-astro-cid-blnpcxhs> <div class="bench-head" data-astro-cid-blnpcxhs> <div data-astro-cid-blnpcxhs> <span class="bench-eyebrow" data-astro-cid-blnpcxhs>WATCH IT RUN</span> <h3 class="bench-title" data-astro-cid-blnpcxhs>160-bit CKKS encrypted inference, live</h3> <p class="bench-sub" data-astro-cid-blnpcxhs>The exact benchmark from <a href="/work/ppfdaas/" class="ink-link" data-astro-cid-blnpcxhs>PPFDaaS</a> — same steps, same measured numbers.</p> </div> <button type="button" class="bench-run-btn" id="bench-run-btn" data-astro-cid-blnpcxhs> <span id="bench-run-btn-label" data-astro-cid-blnpcxhs>&#9654; Run benchmark</span> </button> </div> <div class="bench-window" data-astro-cid-blnpcxhs> <div class="bench-window-bar" data-astro-cid-blnpcxhs> <span class="bench-file" data-astro-cid-blnpcxhs>ckks_evaluator.cpp</span> <span class="bench-status" id="bench-status" data-astro-cid-blnpcxhs>idle</span> </div> <div class="bench-window-body" id="bench-window-body" data-astro-cid-blnpcxhs> <span class="text-quiet" data-astro-cid-blnpcxhs>click "Run benchmark" to execute →</span> </div> </div> </div> <script type="module">function p(){const a=document.getElementById("bench-run-btn"),i=document.getElementById("bench-run-btn-label"),s=document.getElementById("bench-status"),o=document.getElementById("bench-window-body");if(!a||!i||!s||!o)return;function c(n){return new Promise(e=>setTimeout(e,n))}function u(n,e=28){const r=Math.min(e,Math.max(0,Math.round(n/100*e)));return`[${"#".repeat(r)}${".".repeat(e-r)}] ${n.toString().padStart(3," ")}%`}let l=!1;async function m(){if(l)return;l=!0,a.setAttribute("disabled","true"),s.textContent="running",s.classList.add("is-running"),o.innerHTML="";const n=document.createElement("div");n.className="bench-progress",o.appendChild(n);const e=document.createElement("div");e.className="bench-stream",o.appendChild(e);for(let t=0;t<=100;t+=20)n.textContent=`  ${u(t)} · ${(t*.0754).toFixed(2)} ms`,await c(110);const r=[{text:"→ generating CKKS context (poly_degree=8192, coeff_modulus={60,40,60})",delay:200},{text:"→ encrypting transaction vector (4,096 slots) ... 9.84 ms",delay:280},{text:"→ serializing ciphertext to wire (262,257 bytes) ... OK",delay:240},{text:"→ evaluating multiply_plain_inplace + rescale ... 1.88 ms",delay:300},{text:"→ hoisted_tree_sum (8 Galois rotations) ... 5.48 ms",delay:350},{text:"→ total server latency: 7.54 ms mean (p99 7.79 ms) [PASS < 15ms]",delay:260,cls:"text-signal text-bold"},{text:"→ decrypted score: AUC 0.9791 (noise budget preserved: 27.4 bits)",delay:280,cls:"text-copper text-bold"},{text:"✓ 198.7 req/s closed-loop throughput under 4 concurrent clients.",delay:160,cls:"text-signal"}];for(const t of r){await c(t.delay);const d=document.createElement("div");t.cls&&(d.className=t.cls),d.textContent=t.text,e.appendChild(d)}s.textContent="done",s.classList.remove("is-running"),s.classList.add("is-done"),i.textContent="↻ Run again",a.removeAttribute("disabled"),l=!1}a.addEventListener("click",m)}document.addEventListener("DOMContentLoaded",p);</script>  <div class="projects-grid" id="project-showcase" data-astro-cid-57l5znwr> <article class="project-card" data-reveal data-tilt data-astro-cid-mspuyifq> <header class="project-head" data-astro-cid-mspuyifq> <div class="head-main" data-astro-cid-mspuyifq> <div class="title-row" data-astro-cid-mspuyifq> <h2 data-astro-cid-mspuyifq><a href="/work/dispute-desk" data-astro-cid-mspuyifq>Dispute Desk</a></h2> <span class="status-pill status-shipped" data-astro-cid-mspuyifq> <span class="status-dot" data-astro-cid-mspuyifq></span> shipped </span> <span class="video-pill-mini" data-astro-cid-mspuyifq>▶ Video Demo</span>  </div> <p class="tagline" data-astro-cid-mspuyifq>Autonomous multimodal chargeback representment agent with zero-hallucination citation gating.</p> </div> <div class="meta" data-astro-cid-mspuyifq> <span class="period" data-astro-cid-mspuyifq>Sep 2026</span> </div> </header> <div class="stack-row" data-astro-cid-mspuyifq> <span class="tech-chip" data-astro-cid-mspuyifq>Python</span><span class="tech-chip" data-astro-cid-mspuyifq>Gemini API</span><span class="tech-chip" data-astro-cid-mspuyifq>Google AI Studio</span><span class="tech-chip" data-astro-cid-mspuyifq>FastAPI</span><span class="tech-chip" data-astro-cid-mspuyifq>Pydantic</span><span class="tech-chip" data-astro-cid-mspuyifq>Grounding Gate</span> </div>  </article> <script type="module">function a(){var l=document.querySelectorAll(".project-card[data-tilt]"),d=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches,y=window.matchMedia&&window.matchMedia("(hover: hover) and (pointer: fine)").matches;d||!y||l.forEach(function(t){var i=null,n=0,o=0;function v(){var e=t.getBoundingClientRect(),r=(n-e.left)/e.width,s=(o-e.top)/e.height,p=(.5-s)*7,u=(r-.5)*9,c=(r-.5)*-16,h=(s-.5)*-16;t.style.setProperty("--tilt-x",p.toFixed(2)+"deg"),t.style.setProperty("--tilt-y",u.toFixed(2)+"deg"),t.style.setProperty("--tilt-shadow-x",c.toFixed(1)+"px"),t.style.setProperty("--tilt-shadow-y",h.toFixed(1)+"px"),i=null}t.addEventListener("mouseenter",function(){t.classList.add("is-tilting")}),t.addEventListener("mousemove",function(e){n=e.clientX,o=e.clientY,i===null&&(i=requestAnimationFrame(v))}),t.addEventListener("mouseleave",function(){t.classList.remove("is-tilting"),t.style.setProperty("--tilt-x","0deg"),t.style.setProperty("--tilt-y","0deg"),t.style.setProperty("--tilt-shadow-x","0px"),t.style.setProperty("--tilt-shadow-y","0px")})})}document.readyState==="loading"?document.addEventListener("DOMContentLoaded",a):a();</script> <article class="project-card" data-reveal data-tilt data-astro-cid-mspuyifq> <header class="project-head" data-astro-cid-mspuyifq> <div class="head-main" data-astro-cid-mspuyifq> <div class="title-row" data-astro-cid-mspuyifq> <h2 data-astro-cid-mspuyifq><a href="/work/ppfdaas" data-astro-cid-mspuyifq>PPFDaaS</a></h2> <span class="status-pill status-in-progress" data-astro-cid-mspuyifq> <span class="status-dot" data-astro-cid-mspuyifq></span> in-progress </span>   </div> <p class="tagline" data-astro-cid-mspuyifq>Privacy-preserving payment-fraud inference using CKKS homomorphic encryption.</p> </div> <div class="meta" data-astro-cid-mspuyifq> <span class="period" data-astro-cid-mspuyifq>Apr – Aug 2026</span> </div> </header> <div class="stack-row" data-astro-cid-mspuyifq> <span class="tech-chip" data-astro-cid-mspuyifq>C++</span><span class="tech-chip" data-astro-cid-mspuyifq>Python</span><span class="tech-chip" data-astro-cid-mspuyifq>Microsoft SEAL</span><span class="tech-chip" data-astro-cid-mspuyifq>gRPC</span><span class="tech-chip" data-astro-cid-mspuyifq>Docker</span><span class="tech-chip" data-astro-cid-mspuyifq>CMake</span> </div>  </article>  <article class="project-card" data-reveal data-tilt data-astro-cid-mspuyifq> <header class="project-head" data-astro-cid-mspuyifq> <div class="head-main" data-astro-cid-mspuyifq> <div class="title-row" data-astro-cid-mspuyifq> <h2 data-astro-cid-mspuyifq><a href="/work/reachability-triage" data-astro-cid-mspuyifq>reachability-triage</a></h2> <span class="status-pill status-in-progress" data-astro-cid-mspuyifq> <span class="status-dot" data-astro-cid-mspuyifq></span> in-progress </span>  <a href="https://raghavpathak30.github.io/Books/reachability-triage/" target="_blank" class="study-pill" title="Read generated mdBook Study Guide" data-astro-cid-mspuyifq>
 📖 Study guide
-</a> </div> <p class="tagline" data-astro-cid-mspuyifq>Static dependency vulnerability reachability analysis and advisory triage.</p> </div> <div class="meta" data-astro-cid-mspuyifq> <span class="period" data-astro-cid-mspuyifq>Aug – Sep 2026</span> </div> </header> <div class="stack-row" data-astro-cid-mspuyifq> <span class="tech-chip" data-astro-cid-mspuyifq>Python</span><span class="tech-chip" data-astro-cid-mspuyifq>FastAPI</span><span class="tech-chip" data-astro-cid-mspuyifq>Pydantic</span><span class="tech-chip" data-astro-cid-mspuyifq>AST</span><span class="tech-chip" data-astro-cid-mspuyifq>pytest</span> </div>  </article> <article class="project-card" data-astro-cid-mspuyifq> <header class="project-head" data-astro-cid-mspuyifq> <div class="head-main" data-astro-cid-mspuyifq> <div class="title-row" data-astro-cid-mspuyifq> <h2 data-astro-cid-mspuyifq><a href="/work/setuguard" data-astro-cid-mspuyifq>SetuGuard</a></h2> <span class="status-pill status-concluded" data-astro-cid-mspuyifq> <span class="status-dot" data-astro-cid-mspuyifq></span> concluded </span>   </div> <p class="tagline" data-astro-cid-mspuyifq>Static Android malware analysis and mule-account scoring for a public-sector banking security programme.</p> </div> <div class="meta" data-astro-cid-mspuyifq> <span class="period" data-astro-cid-mspuyifq>Jun – Aug 2026</span> </div> </header> <div class="stack-row" data-astro-cid-mspuyifq> <span class="tech-chip" data-astro-cid-mspuyifq>Python</span><span class="tech-chip" data-astro-cid-mspuyifq>Androguard</span><span class="tech-chip" data-astro-cid-mspuyifq>FAISS</span><span class="tech-chip" data-astro-cid-mspuyifq>YARA</span><span class="tech-chip" data-astro-cid-mspuyifq>XGBoost</span><span class="tech-chip" data-astro-cid-mspuyifq>SHAP</span><span class="tech-chip" data-astro-cid-mspuyifq>Flask</span><span class="tech-chip" data-astro-cid-mspuyifq>Playwright</span> </div> <div class="project-claim" data-astro-cid-mspuyifq> <div class="claim-badge-group" data-astro-cid-mspuyifq> <span class="claim-metric-pill" data-astro-cid-mspuyifq> <span class="metric-key" data-astro-cid-mspuyifq>AUC</span> <span class="metric-val" data-astro-cid-mspuyifq>0.1444</span> </span> <span class="claim-ci-pill" data-astro-cid-mspuyifq>
+</a> </div> <p class="tagline" data-astro-cid-mspuyifq>Static dependency vulnerability reachability analysis and advisory triage.</p> </div> <div class="meta" data-astro-cid-mspuyifq> <span class="period" data-astro-cid-mspuyifq>Aug – Sep 2026</span> </div> </header> <div class="stack-row" data-astro-cid-mspuyifq> <span class="tech-chip" data-astro-cid-mspuyifq>Python</span><span class="tech-chip" data-astro-cid-mspuyifq>FastAPI</span><span class="tech-chip" data-astro-cid-mspuyifq>Pydantic</span><span class="tech-chip" data-astro-cid-mspuyifq>AST</span><span class="tech-chip" data-astro-cid-mspuyifq>pytest</span> </div>  </article>  <article class="project-card" data-reveal data-tilt data-astro-cid-mspuyifq> <header class="project-head" data-astro-cid-mspuyifq> <div class="head-main" data-astro-cid-mspuyifq> <div class="title-row" data-astro-cid-mspuyifq> <h2 data-astro-cid-mspuyifq><a href="/work/setuguard" data-astro-cid-mspuyifq>SetuGuard</a></h2> <span class="status-pill status-concluded" data-astro-cid-mspuyifq> <span class="status-dot" data-astro-cid-mspuyifq></span> concluded </span>   </div> <p class="tagline" data-astro-cid-mspuyifq>Static Android malware analysis and mule-account scoring for a public-sector banking security programme.</p> </div> <div class="meta" data-astro-cid-mspuyifq> <span class="period" data-astro-cid-mspuyifq>Jun – Aug 2026</span> </div> </header> <div class="stack-row" data-astro-cid-mspuyifq> <span class="tech-chip" data-astro-cid-mspuyifq>Python</span><span class="tech-chip" data-astro-cid-mspuyifq>Androguard</span><span class="tech-chip" data-astro-cid-mspuyifq>FAISS</span><span class="tech-chip" data-astro-cid-mspuyifq>YARA</span><span class="tech-chip" data-astro-cid-mspuyifq>XGBoost</span><span class="tech-chip" data-astro-cid-mspuyifq>SHAP</span><span class="tech-chip" data-astro-cid-mspuyifq>Flask</span><span class="tech-chip" data-astro-cid-mspuyifq>Playwright</span> </div> <div class="project-claim" data-astro-cid-mspuyifq> <div class="claim-badge-group" data-astro-cid-mspuyifq> <span class="claim-metric-pill" data-astro-cid-mspuyifq> <span class="metric-key" data-astro-cid-mspuyifq>AUC</span> <span class="metric-val" data-astro-cid-mspuyifq>0.1444</span> </span> <span class="claim-ci-pill" data-astro-cid-mspuyifq>
 95% CI [0.0905 – 0.2081]
-</span> <span class="claim-ref-pill" data-astro-cid-mspuyifq>ref 0.5</span> </div> <!-- Sleek mini interval bar (height: 6px, fixed width: 110px) --> <div class="claim-spark-container" title="Measured: 0.1444, 95% CI [0.0905, 0.2081], Ref: 0.5" data-astro-cid-mspuyifq> <div class="spark-track" data-astro-cid-mspuyifq> <div class="spark-interval" style="left: 9.049999999999999%; width: 11.760000000000002%;" data-astro-cid-mspuyifq></div> <div class="spark-point" style="left: 14.44%;" data-astro-cid-mspuyifq></div> <div class="spark-ref" style="left: 50%;" title="Reference baseline: 0.5" data-astro-cid-mspuyifq></div> </div> </div> <p class="claim-copy" data-astro-cid-mspuyifq>Detector ranks legitimate Indian banking apps above known malware.</p> </div> </article> <article class="project-card" data-astro-cid-mspuyifq> <header class="project-head" data-astro-cid-mspuyifq> <div class="head-main" data-astro-cid-mspuyifq> <div class="title-row" data-astro-cid-mspuyifq> <h2 data-astro-cid-mspuyifq><a href="/work/privadex" data-astro-cid-mspuyifq>PrivaDEX</a></h2> <span class="status-pill status-concluded" data-astro-cid-mspuyifq> <span class="status-dot" data-astro-cid-mspuyifq></span> concluded </span>   </div> <p class="tagline" data-astro-cid-mspuyifq>Confidential-computation matching engine evaluating trades over homomorphically encrypted records.</p> </div> <div class="meta" data-astro-cid-mspuyifq> <span class="period" data-astro-cid-mspuyifq>Apr – May 2026</span> </div> </header> <div class="stack-row" data-astro-cid-mspuyifq> <span class="tech-chip" data-astro-cid-mspuyifq>C++</span><span class="tech-chip" data-astro-cid-mspuyifq>Python</span><span class="tech-chip" data-astro-cid-mspuyifq>Microsoft SEAL</span><span class="tech-chip" data-astro-cid-mspuyifq>gRPC</span><span class="tech-chip" data-astro-cid-mspuyifq>CMake</span><span class="tech-chip" data-astro-cid-mspuyifq>pytest</span> </div>  </article> <article class="project-card" data-astro-cid-mspuyifq> <header class="project-head" data-astro-cid-mspuyifq> <div class="head-main" data-astro-cid-mspuyifq> <div class="title-row" data-astro-cid-mspuyifq> <h2 data-astro-cid-mspuyifq><a href="/work/pwnbot" data-astro-cid-mspuyifq>PwnBot</a></h2> <span class="status-pill status-concluded" data-astro-cid-mspuyifq> <span class="status-dot" data-astro-cid-mspuyifq></span> concluded </span>   </div> <p class="tagline" data-astro-cid-mspuyifq>Python CLI penetration testing assistant with automated reconnaissance and local tool parsing.</p> </div> <div class="meta" data-astro-cid-mspuyifq> <span class="period" data-astro-cid-mspuyifq>Mar – Jun 2026</span> </div> </header> <div class="stack-row" data-astro-cid-mspuyifq> <span class="tech-chip" data-astro-cid-mspuyifq>Python</span><span class="tech-chip" data-astro-cid-mspuyifq>Groq</span><span class="tech-chip" data-astro-cid-mspuyifq>Rich</span><span class="tech-chip" data-astro-cid-mspuyifq>DuckDuckGo</span><span class="tech-chip" data-astro-cid-mspuyifq>nmap</span><span class="tech-chip" data-astro-cid-mspuyifq>pytest</span> </div>  </article>  </div> </main>  </body></html> 
+</span> <span class="claim-ref-pill" data-astro-cid-mspuyifq>ref 0.5</span> </div> <!-- Sleek mini interval bar (height: 6px, fixed width: 110px) --> <div class="claim-spark-container" title="Measured: 0.1444, 95% CI [0.0905, 0.2081], Ref: 0.5" data-astro-cid-mspuyifq> <div class="spark-track" data-astro-cid-mspuyifq> <div class="spark-interval" style="left: 9.049999999999999%; width: 11.760000000000002%;" data-astro-cid-mspuyifq></div> <div class="spark-point" style="left: 14.44%;" data-astro-cid-mspuyifq></div> <div class="spark-ref" style="left: 50%;" title="Reference baseline: 0.5" data-astro-cid-mspuyifq></div> </div> </div> <p class="claim-copy" data-astro-cid-mspuyifq>Detector ranks legitimate Indian banking apps above known malware.</p> </div> </article>  <article class="project-card" data-reveal data-tilt data-astro-cid-mspuyifq> <header class="project-head" data-astro-cid-mspuyifq> <div class="head-main" data-astro-cid-mspuyifq> <div class="title-row" data-astro-cid-mspuyifq> <h2 data-astro-cid-mspuyifq><a href="/work/privadex" data-astro-cid-mspuyifq>PrivaDEX</a></h2> <span class="status-pill status-concluded" data-astro-cid-mspuyifq> <span class="status-dot" data-astro-cid-mspuyifq></span> concluded </span> <span class="video-pill-mini" data-astro-cid-mspuyifq>▶ Video Demo</span>  </div> <p class="tagline" data-astro-cid-mspuyifq>Confidential-computation matching engine evaluating trades over homomorphically encrypted records.</p> </div> <div class="meta" data-astro-cid-mspuyifq> <span class="period" data-astro-cid-mspuyifq>Apr – May 2026</span> </div> </header> <div class="stack-row" data-astro-cid-mspuyifq> <span class="tech-chip" data-astro-cid-mspuyifq>C++</span><span class="tech-chip" data-astro-cid-mspuyifq>Python</span><span class="tech-chip" data-astro-cid-mspuyifq>Microsoft SEAL</span><span class="tech-chip" data-astro-cid-mspuyifq>gRPC</span><span class="tech-chip" data-astro-cid-mspuyifq>CMake</span><span class="tech-chip" data-astro-cid-mspuyifq>pytest</span> </div>  </article>  <article class="project-card" data-reveal data-tilt data-astro-cid-mspuyifq> <header class="project-head" data-astro-cid-mspuyifq> <div class="head-main" data-astro-cid-mspuyifq> <div class="title-row" data-astro-cid-mspuyifq> <h2 data-astro-cid-mspuyifq><a href="/work/pwnbot" data-astro-cid-mspuyifq>PwnBot</a></h2> <span class="status-pill status-concluded" data-astro-cid-mspuyifq> <span class="status-dot" data-astro-cid-mspuyifq></span> concluded </span>   </div> <p class="tagline" data-astro-cid-mspuyifq>Python CLI penetration testing assistant with automated reconnaissance and local tool parsing.</p> </div> <div class="meta" data-astro-cid-mspuyifq> <span class="period" data-astro-cid-mspuyifq>Mar – Jun 2026</span> </div> </header> <div class="stack-row" data-astro-cid-mspuyifq> <span class="tech-chip" data-astro-cid-mspuyifq>Python</span><span class="tech-chip" data-astro-cid-mspuyifq>Groq</span><span class="tech-chip" data-astro-cid-mspuyifq>Rich</span><span class="tech-chip" data-astro-cid-mspuyifq>DuckDuckGo</span><span class="tech-chip" data-astro-cid-mspuyifq>nmap</span><span class="tech-chip" data-astro-cid-mspuyifq>pytest</span> </div>  </article>   </div> <section class="skills-stack-section" id="skills-stack" data-astro-cid-33ew6i4m> <div class="skills-header" data-reveal data-astro-cid-33ew6i4m> <span class="hud-pill" data-astro-cid-33ew6i4m>SKILLS</span> <h2 class="sh-title" data-astro-cid-33ew6i4m>What I work on</h2> <p class="sh-sub" data-astro-cid-33ew6i4m>Applied AI and security engineering, both backed by real, measured systems.</p> </div> <!-- SPOTLIGHT SEQUENCE: one line, one link, no mechanism dump — three in a row.
+       Each pins full-viewport while the page scrolls past it, then releases into the
+       next — a held-breath moment per project instead of just one. --> <div class="spotlight-pin" data-astro-cid-33ew6i4m> <div class="spotlight-card" id="spotlight-privadex" data-reveal data-astro-cid-33ew6i4m> <div class="sc-badge" data-astro-cid-33ew6i4m> <span class="sc-dot" data-astro-cid-33ew6i4m></span> SPOTLIGHT — 1 OF 3 </div> <h3 class="sc-title" data-astro-cid-33ew6i4m>Timing-safe cryptography</h3> <p class="sc-lead" data-astro-cid-33ew6i4m>Cryptographic code that doesn&#39;t leak secrets through how long it takes to run.</p> <a href="/work/privadex/" class="scl-pill" data-astro-cid-33ew6i4m>See how, in PrivaDEX &#8599;</a> </div> </div><div class="spotlight-pin" data-astro-cid-33ew6i4m> <div class="spotlight-card" id="spotlight-setuguard" data-reveal data-astro-cid-33ew6i4m> <div class="sc-badge" data-astro-cid-33ew6i4m> <span class="sc-dot" data-astro-cid-33ew6i4m></span> SPOTLIGHT — 2 OF 3 </div> <h3 class="sc-title" data-astro-cid-33ew6i4m>Evidence you can verify</h3> <p class="sc-lead" data-astro-cid-33ew6i4m>Scans banking apps for security flaws and writes verified detection rules — no made-up evidence.</p> <a href="/work/setuguard/" class="scl-pill" data-astro-cid-33ew6i4m>See how, in SetuGuard &#8599;</a> </div> </div><div class="spotlight-pin" data-astro-cid-33ew6i4m> <div class="spotlight-card" id="spotlight-reachability" data-reveal data-astro-cid-33ew6i4m> <div class="sc-badge" data-astro-cid-33ew6i4m> <span class="sc-dot" data-astro-cid-33ew6i4m></span> SPOTLIGHT — 3 OF 3 </div> <h3 class="sc-title" data-astro-cid-33ew6i4m>Reachable, not just present</h3> <p class="sc-lead" data-astro-cid-33ew6i4m>Checks whether a vulnerable dependency is actually reachable from your code, to cut false alarms.</p> <a href="/work/reachability-triage/" class="scl-pill" data-astro-cid-33ew6i4m>See how, in reachability-triage &#8599;</a> </div> </div> <div class="skills-pillars-grid" data-astro-cid-33ew6i4m> <!-- PILLAR 1: AI ENGINEERING --> <div class="pillar-card pillar-ai" id="pillar-ai" data-reveal data-astro-cid-33ew6i4m> <div class="pillar-head" data-astro-cid-33ew6i4m> <span class="pillar-badge badge-ai" data-astro-cid-33ew6i4m>AI ENGINEERING</span> <h3 class="pillar-heading" data-astro-cid-33ew6i4m>AI &amp; LLM Systems</h3> </div> <div class="visual-tags-list" data-astro-cid-33ew6i4m> <div class="visual-tag-item tag-ai" data-tag-idx="0" tabindex="0" data-astro-cid-33ew6i4m> <div class="tag-main" data-astro-cid-33ew6i4m> <span class="tag-dot-ai" data-astro-cid-33ew6i4m></span> <span class="tag-name" data-astro-cid-33ew6i4m>LLM Application Engineering</span> <span class="tag-badge" data-astro-cid-33ew6i4m>Gemini API</span> </div> <p class="tag-micro-desc" data-astro-cid-33ew6i4m>Agents built on Gemini, with reliable structured outputs.</p> <div class="tag-projects-row" data-astro-cid-33ew6i4m> <span class="tp-pill" data-astro-cid-33ew6i4m>Dispute Desk</span><span class="tp-pill" data-astro-cid-33ew6i4m>PwnBot</span> </div> </div><div class="visual-tag-item tag-ai" data-tag-idx="1" tabindex="0" data-astro-cid-33ew6i4m> <div class="tag-main" data-astro-cid-33ew6i4m> <span class="tag-dot-ai" data-astro-cid-33ew6i4m></span> <span class="tag-name" data-astro-cid-33ew6i4m>AI Workflows &amp; Evaluation</span> <span class="tag-badge" data-astro-cid-33ew6i4m>Google AI Studio</span> </div> <p class="tag-micro-desc" data-astro-cid-33ew6i4m>Faster, cheaper prompting with caching and eval harnesses.</p> <div class="tag-projects-row" data-astro-cid-33ew6i4m> <span class="tp-pill" data-astro-cid-33ew6i4m>Dispute Desk</span> </div> </div><div class="visual-tag-item tag-ai" data-tag-idx="2" tabindex="0" data-astro-cid-33ew6i4m> <div class="tag-main" data-astro-cid-33ew6i4m> <span class="tag-dot-ai" data-astro-cid-33ew6i4m></span> <span class="tag-name" data-astro-cid-33ew6i4m>Autonomous Agent Pipelines</span> <span class="tag-badge" data-astro-cid-33ew6i4m>Agent Architecture</span> </div> <p class="tag-micro-desc" data-astro-cid-33ew6i4m>End-to-end agents that read documents and take real actions.</p> <div class="tag-projects-row" data-astro-cid-33ew6i4m> <span class="tp-pill" data-astro-cid-33ew6i4m>Dispute Desk</span><span class="tp-pill" data-astro-cid-33ew6i4m>SetuGuard</span> </div> </div><div class="visual-tag-item tag-ai" data-tag-idx="3" tabindex="0" data-astro-cid-33ew6i4m> <div class="tag-main" data-astro-cid-33ew6i4m> <span class="tag-dot-ai" data-astro-cid-33ew6i4m></span> <span class="tag-name" data-astro-cid-33ew6i4m>Hallucination-Checked Outputs</span> <span class="tag-badge" data-astro-cid-33ew6i4m>Grounding Gates</span> </div> <p class="tag-micro-desc" data-astro-cid-33ew6i4m>Every AI-generated claim checked against a verified source.</p> <div class="tag-projects-row" data-astro-cid-33ew6i4m> <span class="tp-pill" data-astro-cid-33ew6i4m>Dispute Desk</span><span class="tp-pill" data-astro-cid-33ew6i4m>SetuGuard</span> </div> </div> </div> </div> <!-- PILLAR 2: CRYPTOGRAPHY & SECURITY --> <div class="pillar-card pillar-security" id="pillar-sec" data-reveal data-astro-cid-33ew6i4m> <div class="pillar-head" data-astro-cid-33ew6i4m> <span class="pillar-badge badge-sec" data-astro-cid-33ew6i4m>SECURITY</span> <h3 class="pillar-heading" data-astro-cid-33ew6i4m>Cryptography &amp; Security</h3> </div> <div class="visual-tags-list" data-astro-cid-33ew6i4m> <div class="visual-tag-item tag-sec" data-tag-idx="0" tabindex="0" data-astro-cid-33ew6i4m> <div class="tag-main" data-astro-cid-33ew6i4m> <span class="tag-dot-sec" data-astro-cid-33ew6i4m></span> <span class="tag-name" data-astro-cid-33ew6i4m>Timing Side-Channel Auditing</span> <span class="tag-badge" data-astro-cid-33ew6i4m>Side-Channel Analysis</span> </div> <p class="tag-micro-desc" data-astro-cid-33ew6i4m>Finding and closing timing leaks that expose secret keys.</p> <div class="tag-projects-row" data-astro-cid-33ew6i4m> <span class="tp-pill" data-astro-cid-33ew6i4m>PrivaDEX</span> </div> </div><div class="visual-tag-item tag-sec" data-tag-idx="1" tabindex="0" data-astro-cid-33ew6i4m> <div class="tag-main" data-astro-cid-33ew6i4m> <span class="tag-dot-sec" data-astro-cid-33ew6i4m></span> <span class="tag-name" data-astro-cid-33ew6i4m>Cryptographic Protocol Design</span> <span class="tag-badge" data-astro-cid-33ew6i4m>Modular Math &amp; DSA</span> </div> <p class="tag-micro-desc" data-astro-cid-33ew6i4m>Signature schemes and modular math, done the safe way.</p> <div class="tag-projects-row" data-astro-cid-33ew6i4m> <span class="tp-pill" data-astro-cid-33ew6i4m>PPFDaaS</span><span class="tp-pill" data-astro-cid-33ew6i4m>PrivaDEX</span> </div> </div><div class="visual-tag-item tag-sec" data-tag-idx="2" tabindex="0" data-astro-cid-33ew6i4m> <div class="tag-main" data-astro-cid-33ew6i4m> <span class="tag-dot-sec" data-astro-cid-33ew6i4m></span> <span class="tag-name" data-astro-cid-33ew6i4m>Homomorphic Encryption</span> <span class="tag-badge" data-astro-cid-33ew6i4m>Microsoft SEAL</span> </div> <p class="tag-micro-desc" data-astro-cid-33ew6i4m>Running inference on encrypted data the server can never read.</p> <div class="tag-projects-row" data-astro-cid-33ew6i4m> <span class="tp-pill" data-astro-cid-33ew6i4m>PPFDaaS</span><span class="tp-pill" data-astro-cid-33ew6i4m>PrivaDEX</span> </div> </div><div class="visual-tag-item tag-sec" data-tag-idx="3" tabindex="0" data-astro-cid-33ew6i4m> <div class="tag-main" data-astro-cid-33ew6i4m> <span class="tag-dot-sec" data-astro-cid-33ew6i4m></span> <span class="tag-name" data-astro-cid-33ew6i4m>Static Reachability Analysis</span> <span class="tag-badge" data-astro-cid-33ew6i4m>AST Call-Graph</span> </div> <p class="tag-micro-desc" data-astro-cid-33ew6i4m>Tracing code paths to prove a vulnerability is actually reachable.</p> <div class="tag-projects-row" data-astro-cid-33ew6i4m> <span class="tp-pill" data-astro-cid-33ew6i4m>reachability-triage</span> </div> </div> </div> </div> </div> </section>  </main> <footer class="cyber-footer" data-reveal data-astro-cid-57l5znwr> <div class="footer-container" data-astro-cid-57l5znwr> <div class="footer-brand-block" data-astro-cid-57l5znwr> <div class="footer-name" data-astro-cid-57l5znwr>RAGHAV PATHAK</div> <p class="footer-role" data-astro-cid-57l5znwr>AI Systems &amp; Applied Cryptography Engineer</p> <div class="footer-meta-pill" data-astro-cid-57l5znwr> <span class="fmp-dot" data-astro-cid-57l5znwr></span> B.Tech CSE, LNMIIT Jaipur (2027)
+</div> </div> <div class="footer-nav-grid" data-astro-cid-57l5znwr> <div class="f-col" data-astro-cid-57l5znwr> <span class="f-title" data-astro-cid-57l5znwr>Showcase Systems</span> <a href="/work/dispute-desk/" class="f-item ink-link" data-astro-cid-57l5znwr>Dispute Desk (Razorpay AI)</a> <a href="/work/ppfdaas/" class="f-item ink-link" data-astro-cid-57l5znwr>PPFDaaS (Confidential AI)</a> <a href="/work/reachability-triage/" class="f-item ink-link" data-astro-cid-57l5znwr>reachability-triage (AST)</a> <a href="/work/setuguard/" class="f-item ink-link" data-astro-cid-57l5znwr>SetuGuard (IIT Hyderabad)</a> <a href="/work/privadex/" class="f-item ink-link" data-astro-cid-57l5znwr>PrivaDEX (ZK Matching)</a> <a href="/work/pwnbot/" class="f-item ink-link" data-astro-cid-57l5znwr>PwnBot (Agent)</a> </div> <div class="f-col" data-astro-cid-57l5znwr> <span class="f-title" data-astro-cid-57l5znwr>Navigation</span> <a href="/" class="f-item ink-link" data-astro-cid-57l5znwr>Terminal Home</a> <a href="/resume/" class="f-item ink-link" data-astro-cid-57l5znwr>Interactive Resume</a> <a href="/raghav_pathak_resume.pdf" download="Raghav_Pathak_Resume.pdf" class="f-item ink-link" data-astro-cid-57l5znwr>Download PDF Resume 📥</a> <a href="/writing/measurement-note/" class="f-item ink-link" data-astro-cid-57l5znwr>Measurement Provenance</a> </div> <div class="f-col" data-astro-cid-57l5znwr> <span class="f-title" data-astro-cid-57l5znwr>Connect</span> <a href="https://github.com/raghavpathak30" target="_blank" rel="noreferrer" class="f-item ink-link" data-astro-cid-57l5znwr>GitHub ↗</a> <a href="https://www.linkedin.com/in/raghav-pathak-b14b46282" target="_blank" rel="noreferrer" class="f-item ink-link" data-astro-cid-57l5znwr>LinkedIn ↗</a> <a href="mailto:raghavpathak30@gmail.com" class="f-item ink-link" data-astro-cid-57l5znwr>Email ↗</a> </div> </div> </div> <div class="footer-bottom" data-draw-line data-astro-cid-57l5znwr> <span data-astro-cid-57l5znwr>&copy; 2026 Raghav Pathak · Built with craft and provable invariants</span> <button type="button" class="btn-f-mode" onclick="window.cycleTheme()" data-astro-cid-57l5znwr>🎨 Cycle Theme</button> </div> </footer> </div> </div>  <script>
+  (function() {
+    window.setPortfolioTheme = function(theme) {
+      if (!theme || !['modern', 'matrix', 'amber', 'nord'].includes(theme)) theme = 'modern';
+      if (theme === 'modern') {
+        document.documentElement.removeAttribute('data-theme');
+        document.documentElement.setAttribute('data-theme', 'modern');
+      } else {
+        document.documentElement.setAttribute('data-theme', theme);
+      }
+      try { localStorage.setItem('portfolio-theme', theme); } catch (e) {}
+
+      document.querySelectorAll('.btn-theme, .btn-theme-pill').forEach(function(btn) {
+        if (btn.getAttribute('data-theme-val') === theme) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    };
+
+    window.cycleTheme = function() {
+      var themes = ['modern', 'amber', 'nord', 'matrix'];
+      var current = document.documentElement.getAttribute('data-theme') || 'modern';
+      var idx = themes.indexOf(current);
+      var next = themes[(idx + 1) % themes.length];
+      window.setPortfolioTheme(next);
+    };
+
+    var targetTheme = 'modern';
+    try {
+      var savedTheme = localStorage.getItem('portfolio-theme');
+      if (savedTheme && ['modern', 'matrix', 'amber', 'nord'].includes(savedTheme)) targetTheme = savedTheme;
+    } catch (e) {}
+    if (targetTheme !== 'modern') document.documentElement.setAttribute('data-theme', targetTheme);
+
+    document.addEventListener('DOMContentLoaded', function() {
+      window.setPortfolioTheme(targetTheme);
+    });
+  })();
+</script> <script>
+  (function() {
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function reveal(el) {
+      el.classList.add('is-visible');
+    }
+
+    function draw(el) {
+      el.classList.add('is-drawn');
+    }
+
+    function init() {
+      var revealEls = document.querySelectorAll('[data-reveal]');
+      var drawEls = document.querySelectorAll('[data-draw-line]');
+
+      if (reduceMotion || !('IntersectionObserver' in window)) {
+        revealEls.forEach(reveal);
+        drawEls.forEach(draw);
+        return;
+      }
+
+      var observer = new IntersectionObserver(function(entries, obs) {
+        entries.forEach(function(entry) {
+          if (!entry.isIntersecting) return;
+          if (entry.target.hasAttribute('data-reveal')) reveal(entry.target);
+          if (entry.target.hasAttribute('data-draw-line')) draw(entry.target);
+          obs.unobserve(entry.target);
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+      revealEls.forEach(function(el) { observer.observe(el); });
+      drawEls.forEach(function(el) { observer.observe(el); });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script> </body></html><!-- Sitewide Theme Controller (Modern / Amber / Nord / Matrix) --> 

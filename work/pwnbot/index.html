@@ -1,231 +1,277 @@
-<!DOCTYPE html><html lang="en" data-astro-cid-37fxchfa> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Python CLI penetration testing assistant with automated reconnaissance and local tool parsing."><link rel="canonical" href="https://raghavpathak.me/work/pwnbot/"><meta property="og:title" content="PwnBot | Raghav Pathak"><meta property="og:description" content="Converts natural-language security goals into sandboxed CLI tool execution sequences with strict scope-boundary guards and deterministic stdout parsers."><meta property="og:url" content="https://raghavpathak.me/work/pwnbot/"><meta property="og:type" content="article"><meta property="og:image" content="https://raghavpathak.me/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><title>PwnBot | Systems Architecture &amp; Work</title><link rel="stylesheet" href="/_astro/about.CEhJTLS2.css">
-<style>.prose[data-astro-cid-apjhz64k]{max-width:72ch;font-size:1rem}.prose[data-astro-cid-apjhz64k] h1{font-size:2rem;line-height:1.15;margin:0 0 .75rem}.prose[data-astro-cid-apjhz64k] h2{font-size:1.47rem;line-height:1.2;margin:3rem 0 .75rem}.prose[data-astro-cid-apjhz64k] h3{font-size:1.18rem;line-height:1.3;margin:2rem 0 .5rem}.prose[data-astro-cid-apjhz64k] p,.prose[data-astro-cid-apjhz64k] ul,.prose[data-astro-cid-apjhz64k] ol,.prose[data-astro-cid-apjhz64k] pre{margin:0 0 1rem}.prose[data-astro-cid-apjhz64k] code{font-family:var(--font-mono);font-size:.875em;background:#ffffff0f;padding:.15rem .4rem;border-radius:4px;border:1px solid var(--rule)}.prose[data-astro-cid-apjhz64k] pre code{background:transparent;padding:0;border:none}
+<!DOCTYPE html><html lang="en" data-astro-cid-37fxchfa> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Python CLI penetration testing assistant with automated reconnaissance and local tool parsing."><link rel="canonical" href="https://raghavpathak.me/work/pwnbot/"><meta property="og:title" content="PwnBot | Raghav Pathak"><meta property="og:description" content="Turns plain-English security instructions into safe, sandboxed command execution."><meta property="og:url" content="https://raghavpathak.me/work/pwnbot/"><meta property="og:type" content="article"><meta property="og:image" content="https://raghavpathak.me/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><title>PwnBot | Systems Architecture &amp; Work</title><link rel="stylesheet" href="/_astro/about.COLpCr-V.css">
+<style>.prose[data-astro-cid-apjhz64k]{max-width:72ch;font-size:1rem}.prose[data-astro-cid-apjhz64k] h1{font-size:2rem;line-height:1.15;margin:0 0 .75rem}.prose[data-astro-cid-apjhz64k] h2{font-size:1.47rem;line-height:1.2;margin:3rem 0 .75rem}.prose[data-astro-cid-apjhz64k] h3{font-size:1.18rem;line-height:1.3;margin:2rem 0 .5rem}.prose[data-astro-cid-apjhz64k] p,.prose[data-astro-cid-apjhz64k] ul,.prose[data-astro-cid-apjhz64k] ol,.prose[data-astro-cid-apjhz64k] pre{margin:0 0 1rem}.prose[data-astro-cid-apjhz64k] code{font-family:var(--font-mono);font-size:.875em;background:#ffffff0f;padding:.15rem .4rem;border-radius:4px;border:1px solid var(--rule)}.prose[data-astro-cid-apjhz64k] pre code{background:transparent;padding:0;border:none}.prose[data-astro-cid-apjhz64k] a{background-image:linear-gradient(currentColor,currentColor);background-repeat:no-repeat;background-position:0 100%;background-size:0% 1px;transition:background-size .35s cubic-bezier(.22,.9,.3,1),color .15s ease}.prose[data-astro-cid-apjhz64k] a:hover{background-size:100% 1px}@media(prefers-reduced-motion:reduce){.prose[data-astro-cid-apjhz64k] a{transition:none}}
 </style>
-<link rel="stylesheet" href="/_astro/_slug_.DeqXfkcN.css"></head> <body data-astro-cid-37fxchfa> <div class="interactive-bg-wrapper" id="interactive-bg-wrapper" aria-hidden="true" data-astro-cid-t4ic7t5r> <!-- Warm Architectural Micro-Grid --> <div class="ambient-grid-overlay" data-astro-cid-t4ic7t5r></div> <!-- Warm Breathing Ambient Aurora Meshes --> <div class="ambient-aurora-glow glow-terracotta" data-astro-cid-t4ic7t5r></div> <div class="ambient-aurora-glow glow-indigo" data-astro-cid-t4ic7t5r></div> <div class="ambient-aurora-glow glow-sage" data-astro-cid-t4ic7t5r></div> <!-- Interactive Dual-Domain Constellation Canvas --> <canvas id="ambient-canvas" class="ambient-canvas" data-astro-cid-t4ic7t5r></canvas> </div> <script>
+<link rel="stylesheet" href="/_astro/_slug_.DcOjQxCg.css"></head> <body data-astro-cid-37fxchfa> <div id="boot-overlay" class="boot-overlay" aria-hidden="true" data-astro-cid-qozdfemc> <div class="boot-scan-line" id="boot-scan-line" data-astro-cid-qozdfemc></div> <div class="boot-grid" data-astro-cid-qozdfemc> <div class="boot-main" data-astro-cid-qozdfemc> <div class="boot-emblem" data-astro-cid-qozdfemc> <span class="boot-emblem-dot" data-astro-cid-qozdfemc></span> <span class="boot-emblem-name" data-astro-cid-qozdfemc>RAGHAV PATHAK</span> </div> <div class="boot-scramble-line" id="boot-scramble-line" data-astro-cid-qozdfemc>INITIALIZING</div> <div class="boot-progress-wrapper" data-astro-cid-qozdfemc> <div class="boot-progress-track" data-astro-cid-qozdfemc> <div class="boot-progress-bar" id="boot-progress-bar" data-astro-cid-qozdfemc></div> </div> <div class="boot-counter" id="boot-counter" data-astro-cid-qozdfemc>0%</div> </div> </div> <div class="boot-log" id="boot-log" aria-hidden="true" data-astro-cid-qozdfemc></div> </div> </div> <script>
   (function() {
-    var canvas = document.getElementById('ambient-canvas');
-    if (!canvas) return;
+    var overlay = document.getElementById('boot-overlay');
+    if (!overlay) return;
 
-    var ctx = canvas.getContext('2d');
-    if (!ctx) return;
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    var width = 0;
-    var height = 0;
-    var animationFrameId = null;
+    var hasBooted = false;
+    try {
+      hasBooted = sessionStorage.getItem('portfolio_boot_seen') === 'true';
+    } catch (e) {}
 
-    // Smooth mouse position tracking with physics spring
-    var mouse = {
-      x: -2000,
-      y: -2000,
-      targetX: -2000,
-      targetY: -2000,
-      radius: 175,
-      isActive: false
-    };
+    var urlParams = new URLSearchParams(window.location.search);
+    var forceReboot = urlParams.get('reboot') === 'true';
 
-    function resize() {
-      var dpr = Math.min(window.devicePixelRatio || 1, 2);
-      width = canvas.width = window.innerWidth * dpr;
-      height = canvas.height = window.innerHeight * dpr;
-      canvas.style.width = window.innerWidth + 'px';
-      canvas.style.height = window.innerHeight + 'px';
-      ctx.scale(dpr, dpr);
+    if ((hasBooted && !forceReboot) || reduceMotion) {
+      overlay.style.display = 'none';
+      try { sessionStorage.setItem('portfolio_boot_seen', 'true'); } catch (e) {}
+      return;
     }
-    resize();
-    window.addEventListener('resize', resize, { passive: true });
 
-    window.addEventListener('mousemove', function(e) {
-      mouse.targetX = e.clientX;
-      mouse.targetY = e.clientY;
-      mouse.isActive = true;
-    }, { passive: true });
+    overlay.style.display = 'flex';
 
-    window.addEventListener('mouseleave', function() {
-      mouse.targetX = -2000;
-      mouse.targetY = -2000;
-      mouse.isActive = false;
-    }, { passive: true });
+    var scrambleEl = document.getElementById('boot-scramble-line');
+    var barEl = document.getElementById('boot-progress-bar');
+    var counterEl = document.getElementById('boot-counter');
+    var logEl = document.getElementById('boot-log');
 
-    // Touch support for interactive mobile canvas
-    window.addEventListener('touchmove', function(e) {
-      if (e.touches.length > 0) {
-        mouse.targetX = e.touches[0].clientX;
-        mouse.targetY = e.touches[0].clientY;
-        mouse.isActive = true;
-      }
-    }, { passive: true });
+    var isDone = false;
+    var startTime = performance.now();
+    var duration = 1700;
 
-    var isMobile = window.innerWidth < 768;
-    var particleCount = isMobile ? 26 : 48;
-    var particles = [];
+    var targetWords = ['DECRYPTING', 'CALIBRATING', 'SYSTEM READY'];
+    var glyphs = '0123456789ABCDEF!@#$%&*';
 
-    // Node palette: Warm Terracotta (AI/Human), Slate Indigo (Cryptography), Soft Sand (Bridge)
-    var nodeColors = [
-      { r: 224, g: 122, b: 95, type: 'terracotta', glow: 'rgba(224, 122, 95, 0.7)' }, // Warm Terracotta
-      { r: 107, g: 127, b: 196, type: 'indigo', glow: 'rgba(107, 127, 196, 0.7)' },     // Slate Indigo
-      { r: 230, g: 204, b: 178, type: 'sand', glow: 'rgba(230, 204, 178, 0.6)' },       // Soft Sand
-      { r: 139, g: 168, b: 136, type: 'sage', glow: 'rgba(139, 168, 136, 0.7)' }        // Muted Sage
+    var logLines = [
+      'INITIALIZE CORE SYSTEM',
+      'LOAD CRYPTOGRAPHIC CONTEXT',
+      'VERIFY MEASUREMENT PROVENANCE',
+      'SYNC PROJECT INDEX',
+      'CALIBRATE TIMING-SAFE PRIMITIVES',
+      'SYSTEM READY'
     ];
+    var loggedCount = 0;
 
-    for (var i = 0; i < particleCount; i++) {
-      var colorObj = nodeColors[i % nodeColors.length];
-      var isSpecial = i % 4 === 0;
-      particles.push({
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * window.innerHeight,
-        vx: (Math.random() - 0.5) * 0.45,
-        vy: (Math.random() - 0.5) * 0.45,
-        baseRadius: isSpecial ? 2.8 : (Math.random() * 1.5 + 1.6),
-        alpha: Math.random() * 0.3 + 0.55, // Distinct, visible alpha (0.55 - 0.85)
-        color: colorObj,
-        isSpecial: isSpecial,
-        pulseOffset: Math.random() * Math.PI * 2
-      });
+    function appendLogLines(upTo) {
+      while (loggedCount < upTo && loggedCount < logLines.length) {
+        var line = document.createElement('div');
+        line.className = 'boot-log-line';
+        var idx = document.createElement('span');
+        idx.className = 'boot-log-idx';
+        idx.textContent = String(loggedCount + 1).padStart(3, '0');
+        var text = document.createElement('span');
+        text.textContent = logLines[loggedCount];
+        line.appendChild(idx);
+        line.appendChild(text);
+        if (logEl) logEl.appendChild(line);
+        loggedCount++;
+      }
     }
 
-    var time = 0;
+    function finish() {
+      if (isDone) return;
+      isDone = true;
 
-    function render() {
-      var displayWidth = window.innerWidth;
-      var displayHeight = window.innerHeight;
-      ctx.clearRect(0, 0, displayWidth, displayHeight);
-      time += 0.02;
+      if (barEl) barEl.style.width = '100%';
+      if (counterEl) counterEl.textContent = '100%';
+      if (scrambleEl) scrambleEl.textContent = 'SYSTEM READY';
+      appendLogLines(logLines.length);
 
-      // Fluid mouse lerping
-      mouse.x += (mouse.targetX - mouse.x) * 0.08;
-      mouse.y += (mouse.targetY - mouse.y) * 0.08;
+      try {
+        sessionStorage.setItem('portfolio_boot_seen', 'true');
+      } catch (e) {}
 
-      var mode = document.documentElement.getAttribute('data-mode') || 'gui';
-      var isTerminal = mode === 'terminal';
-      var globalAlphaMul = isTerminal ? 0.4 : 1.0;
-
-      // Soft ambient light wash around cursor
-      if (mouse.isActive && mouse.x > 0 && mouse.y > 0 && !isTerminal) {
-        var radGrad = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 220);
-        radGrad.addColorStop(0, 'rgba(224, 122, 95, 0.07)');
-        radGrad.addColorStop(0.5, 'rgba(107, 127, 196, 0.04)');
-        radGrad.addColorStop(1, 'transparent');
-        ctx.fillStyle = radGrad;
-        ctx.fillRect(0, 0, displayWidth, displayHeight);
-      }
-
-      var maxConnectDist = isMobile ? 115 : 155;
-      var maxConnectDistSq = maxConnectDist * maxConnectDist;
-
-      // Draw connection lines first (behind particles)
-      for (var i = 0; i < particles.length; i++) {
-        var p1 = particles[i];
-
-        for (var j = i + 1; j < particles.length; j++) {
-          var p2 = particles[j];
-          var dx = p1.x - p2.x;
-          var dy = p1.y - p2.y;
-          var distSq = dx * dx + dy * dy;
-
-          if (distSq < maxConnectDistSq) {
-            var cDist = Math.sqrt(distSq);
-            var factor = 1 - cDist / maxConnectDist;
-            
-            // Check if near mouse for dynamic brightness amplification
-            var midX = (p1.x + p2.x) * 0.5;
-            var midY = (p1.y + p2.y) * 0.5;
-            var mdx = midX - mouse.x;
-            var mdy = midY - mouse.y;
-            var mDist = Math.sqrt(mdx * mdx + mdy * mdy);
-            var mouseBoost = (mDist < mouse.radius) ? (1 - mDist / mouse.radius) * 0.35 : 0;
-
-            // Highly visible line alpha (0.18 - 0.42 with mouse boost)
-            var lineAlpha = (factor * 0.22 + mouseBoost) * globalAlphaMul;
-
-            ctx.beginPath();
-            ctx.moveTo(p1.x, p1.y);
-            ctx.lineTo(p2.x, p2.y);
-            
-            // Subtle dual-tone line blending
-            if (p1.color.type === 'terracotta' || p2.color.type === 'terracotta') {
-              ctx.strokeStyle = 'rgba(224, 122, 95, ' + lineAlpha + ')';
-            } else {
-              ctx.strokeStyle = 'rgba(107, 127, 196, ' + lineAlpha + ')';
-            }
-            ctx.lineWidth = mouseBoost > 0 ? 1.3 : 0.95;
-            ctx.stroke();
-          }
-        }
-      }
-
-      // Update and draw luminescent nodes
-      for (var i = 0; i < particles.length; i++) {
-        var p = particles[i];
-
-        // Organic drift
-        p.x += p.vx;
-        p.y += p.vy;
-
-        // Smooth wrapping with boundary margin
-        if (p.x < -20) p.x = displayWidth + 20;
-        else if (p.x > displayWidth + 20) p.x = -20;
-        if (p.y < -20) p.y = displayHeight + 20;
-        else if (p.y > displayHeight + 20) p.y = -20;
-
-        // Fluid cursor repulsion
-        var cdx = p.x - mouse.x;
-        var cdy = p.y - mouse.y;
-        var dist = Math.sqrt(cdx * cdx + cdy * cdy);
-        if (dist < mouse.radius && dist > 0) {
-          var force = (mouse.radius - dist) / mouse.radius;
-          p.x += (cdx / dist) * force * 1.5;
-          p.y += (cdy / dist) * force * 1.5;
-        }
-
-        var breathing = Math.sin(time + p.pulseOffset) * 0.3;
-        var curRadius = p.baseRadius + breathing;
-        var curAlpha = Math.min(1.0, (p.alpha + breathing * 0.15) * globalAlphaMul);
-
-        // Draw outer glowing halo
-        ctx.save();
-        ctx.shadowBlur = p.isSpecial ? 12 : 7;
-        ctx.shadowColor = p.color.glow;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, curRadius, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(' + p.color.r + ', ' + p.color.g + ', ' + p.color.b + ', ' + curAlpha + ')';
-        ctx.fill();
-
-        // Technical cross mark on special nodes
-        if (p.isSpecial && !isTerminal) {
-          var arm = 4.5;
-          ctx.strokeStyle = 'rgba(247, 244, 238, ' + (curAlpha * 0.6) + ')';
-          ctx.lineWidth = 1;
-          ctx.beginPath();
-          ctx.moveTo(p.x - arm, p.y);
-          ctx.lineTo(p.x + arm, p.y);
-          ctx.moveTo(p.x, p.y - arm);
-          ctx.lineTo(p.x, p.y + arm);
-          ctx.stroke();
-        }
-
-        ctx.restore();
-      }
-
-      animationFrameId = requestAnimationFrame(render);
+      overlay.classList.add('boot-fade-out');
+      setTimeout(function() {
+        overlay.style.display = 'none';
+      }, 350);
     }
 
-    document.addEventListener('visibilitychange', function() {
-      if (document.hidden) {
-        if (animationFrameId) cancelAnimationFrame(animationFrameId);
+    function frame(now) {
+      if (isDone) return;
+      var elapsed = now - startTime;
+      var progress = Math.min(elapsed / duration, 1);
+
+      var ease = 1 - Math.pow(1 - progress, 2);
+      var currentPct = Math.floor(ease * 100);
+
+      if (barEl) barEl.style.width = currentPct + '%';
+      if (counterEl) counterEl.textContent = currentPct + '%';
+
+      appendLogLines(Math.ceil(progress * logLines.length));
+
+      var wordIndex = Math.min(Math.floor(progress * targetWords.length), targetWords.length - 1);
+      var targetWord = targetWords[wordIndex];
+
+      if (progress >= 0.95) {
+        if (scrambleEl) scrambleEl.textContent = 'SYSTEM READY';
+      } else if (Math.random() < 0.35 && scrambleEl) {
+        var scrambled = '';
+        for (var i = 0; i < targetWord.length; i++) {
+          scrambled += Math.random() < 0.4 ? glyphs[Math.floor(Math.random() * glyphs.length)] : targetWord[i];
+        }
+        scrambleEl.textContent = scrambled;
+      }
+
+      if (progress < 1) {
+        requestAnimationFrame(frame);
       } else {
-        animationFrameId = requestAnimationFrame(render);
+        setTimeout(finish, 200);
+      }
+    }
+
+    requestAnimationFrame(frame);
+
+    overlay.addEventListener('click', finish);
+    window.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' || e.code === 'Escape') {
+        finish();
       }
     });
-
-    animationFrameId = requestAnimationFrame(render);
   })();
-</script>   <div class="detail-container" data-astro-cid-by4zwojz> <nav class="breadcrumb-nav" data-astro-cid-by4zwojz> <a href="/" class="crumb-link" data-astro-cid-by4zwojz>&larr; Return to Interactive Home</a> <span class="crumb-sep" data-astro-cid-by4zwojz>/</span> <a href="/work/" class="crumb-link" data-astro-cid-by4zwojz>Projects</a> <span class="crumb-sep" data-astro-cid-by4zwojz>/</span> <span class="crumb-curr" data-astro-cid-by4zwojz>PwnBot</span> </nav> <main class="page grid" data-astro-cid-by4zwojz> <aside class="rail" data-astro-cid-csby2m2u>  <div class="rail-box" data-astro-cid-by4zwojz> <span class="status-pill status-{project.data.state}" data-astro-cid-by4zwojz>CONCLUDED</span> <span class="domain-badge domain-ai" data-astro-cid-by4zwojz> ✦ AI &amp; LLMs </span>  <div class="rail-meta-group" data-astro-cid-by4zwojz> <span class="rail-label" data-astro-cid-by4zwojz>Timeline</span> <p class="rail-val" data-astro-cid-by4zwojz>Mar – Jun 2026</p> </div> <div class="rail-meta-group" data-astro-cid-by4zwojz> <span class="rail-label" data-astro-cid-by4zwojz>Role</span> <p class="rail-val" data-astro-cid-by4zwojz>sole contributor</p> </div> <div class="rail-meta-group" data-astro-cid-by4zwojz> <span class="rail-label" data-astro-cid-by4zwojz>Tech Stack</span> <div class="rail-tags" data-astro-cid-by4zwojz> <span class="rail-tag" data-astro-cid-by4zwojz>Python</span><span class="rail-tag" data-astro-cid-by4zwojz>Groq</span><span class="rail-tag" data-astro-cid-by4zwojz>Rich</span><span class="rail-tag" data-astro-cid-by4zwojz>DuckDuckGo</span><span class="rail-tag" data-astro-cid-by4zwojz>nmap</span><span class="rail-tag" data-astro-cid-by4zwojz>pytest</span> </div> </div> <div class="rail-links" data-astro-cid-by4zwojz> <a href="https://github.com/raghavpathak30/PwnBot" target="_blank" rel="noreferrer" class="rail-btn btn-repo" data-astro-cid-by4zwojz> <span class="btn-icon" data-astro-cid-by4zwojz>⚡</span> GitHub Repository ↗
-</a>   </div> </div>  </aside>  <div class="prose" data-astro-cid-apjhz64k="true">  <div class="project-header" data-astro-cid-by4zwojz> <div class="header-pre" data-astro-cid-by4zwojz> <span class="proj-id" data-astro-cid-by4zwojz>SYSTEM SPECIFICATION // PWNBOT</span> </div> <h1 class="project-title" data-astro-cid-by4zwojz>PwnBot</h1> <p class="project-tagline" data-astro-cid-by4zwojz>Python CLI penetration testing assistant with automated reconnaissance and local tool parsing.</p> <div class="punchline-callout" data-astro-cid-by4zwojz> <p class="punchline-text" data-astro-cid-by4zwojz>"Converts natural-language security goals into sandboxed CLI tool execution sequences with strict scope-boundary guards and deterministic stdout parsers."</p> </div> </div> <div class="deep-dive-body" data-astro-cid-by4zwojz> <h2 id="what-it-is">What it is</h2>
+</script>  <div class="interactive-bg-wrapper" id="interactive-bg-wrapper" aria-hidden="true" data-astro-cid-t4ic7t5r> <div class="paper-vignette" data-astro-cid-t4ic7t5r></div> <div class="paper-grain" data-astro-cid-t4ic7t5r></div> <div class="lantern-glow" id="lantern-glow" data-astro-cid-t4ic7t5r></div> </div> <script>
+  (function() {
+    var lantern = document.getElementById('lantern-glow');
+    var wrapper = document.getElementById('interactive-bg-wrapper');
+    if (!lantern || !wrapper) return;
+
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var canHover = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    // --- Warm lantern light, gently trailing the cursor ---
+    if (canHover && !reduceMotion) {
+      var lx = window.innerWidth / 2;
+      var ly = window.innerHeight * 0.35;
+      var tx = lx;
+      var ty = ly;
+      var rafId = null;
+
+      window.addEventListener('mousemove', function(e) {
+        tx = e.clientX;
+        ty = e.clientY;
+        lantern.classList.add('is-lit');
+      }, { passive: true });
+
+      window.addEventListener('mouseleave', function() {
+        lantern.classList.remove('is-lit');
+      }, { passive: true });
+
+      function tick() {
+        lx += (tx - lx) * 0.045;
+        ly += (ty - ly) * 0.045;
+        lantern.style.transform = 'translate3d(' + (lx - 260) + 'px, ' + (ly - 260) + 'px, 0)';
+        rafId = requestAnimationFrame(tick);
+      }
+
+      document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+          if (rafId) cancelAnimationFrame(rafId);
+          rafId = null;
+        } else if (!rafId) {
+          rafId = requestAnimationFrame(tick);
+        }
+      });
+
+      rafId = requestAnimationFrame(tick);
+    } else {
+      lantern.style.display = 'none';
+    }
+
+    // --- Slow parallax drift on the paper grain as the page scrolls ---
+    if (!reduceMotion) {
+      var ticking = false;
+      window.addEventListener('scroll', function() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function() {
+          var offset = window.scrollY * 0.035;
+          wrapper.style.setProperty('--parallax-y', offset.toFixed(1) + 'px');
+          ticking = false;
+        });
+      }, { passive: true });
+    }
+  })();
+</script>   <div class="detail-container" data-astro-cid-by4zwojz> <nav class="breadcrumb-nav" data-astro-cid-by4zwojz> <a href="/" class="crumb-link ink-link" data-astro-cid-by4zwojz>&larr; Return to Interactive Home</a> <span class="crumb-sep" data-astro-cid-by4zwojz>/</span> <a href="/work/" class="crumb-link ink-link" data-astro-cid-by4zwojz>Projects</a> <span class="crumb-sep" data-astro-cid-by4zwojz>/</span> <span class="crumb-curr" data-astro-cid-by4zwojz>PwnBot</span> </nav> <main class="page grid" data-astro-cid-by4zwojz> <aside class="rail" data-astro-cid-csby2m2u>  <div class="rail-box" data-astro-cid-by4zwojz> <span class="status-pill status-{project.data.state}" data-astro-cid-by4zwojz>CONCLUDED</span> <span class="domain-badge domain-ai" data-astro-cid-by4zwojz> ✦ AI &amp; LLMs </span>  <div class="rail-meta-group" data-astro-cid-by4zwojz> <span class="rail-label" data-astro-cid-by4zwojz>Timeline</span> <p class="rail-val" data-astro-cid-by4zwojz>Mar – Jun 2026</p> </div> <div class="rail-meta-group" data-astro-cid-by4zwojz> <span class="rail-label" data-astro-cid-by4zwojz>Role</span> <p class="rail-val" data-astro-cid-by4zwojz>sole contributor</p> </div> <div class="rail-meta-group" data-astro-cid-by4zwojz> <span class="rail-label" data-astro-cid-by4zwojz>Tech Stack</span> <div class="rail-tags" data-astro-cid-by4zwojz> <span class="rail-tag" data-astro-cid-by4zwojz>Python</span><span class="rail-tag" data-astro-cid-by4zwojz>Groq</span><span class="rail-tag" data-astro-cid-by4zwojz>Rich</span><span class="rail-tag" data-astro-cid-by4zwojz>DuckDuckGo</span><span class="rail-tag" data-astro-cid-by4zwojz>nmap</span><span class="rail-tag" data-astro-cid-by4zwojz>pytest</span> </div> </div> <div class="rail-links" data-astro-cid-by4zwojz> <a href="https://github.com/raghavpathak30/PwnBot" target="_blank" rel="noreferrer" class="rail-btn btn-repo" data-astro-cid-by4zwojz> <span class="btn-icon" data-astro-cid-by4zwojz>⚡</span> GitHub Repository ↗
+</a>   </div> </div>  </aside>  <div class="prose" data-astro-cid-apjhz64k="true">  <div class="project-header" data-astro-cid-by4zwojz> <div class="header-pre" data-astro-cid-by4zwojz> <span class="proj-id" data-astro-cid-by4zwojz>SYSTEM SPECIFICATION // PWNBOT</span> </div> <h1 class="project-title" data-astro-cid-by4zwojz>PwnBot</h1> <p class="project-tagline" data-astro-cid-by4zwojz>Python CLI penetration testing assistant with automated reconnaissance and local tool parsing.</p> <div class="punchline-callout" data-astro-cid-by4zwojz> <p class="punchline-text" data-astro-cid-by4zwojz>"Turns plain-English security instructions into safe, sandboxed command execution."</p> </div> </div> <div class="deep-dive-body" data-astro-cid-by4zwojz> <h2 id="what-it-is">What it is</h2>
 <p>A Python CLI chatbot built for authorized penetration testing workflows in lab environments and bug bounty programs. It integrates interactive LLM streaming across multiple Groq models with local command execution, automated reconnaissance scans via nmap, and output parsing for discovery tools.</p>
 <h2 id="what-was-hard">What was hard</h2>
 <p>Safely managing local command execution from a chat interface without allowing shell injection. The execution runner enforces <code>shell=False</code> with <code>shlex.split()</code> across all non-interactive tool dispatches, while isolating interactive subshells (reverse listeners and TTY upgrades) to explicit <code>/shell</code> commands. Refactoring the original single-file script into a modular package required isolating mutable target state and token-trimmed conversation history into explicit classes without altering persistence formats.</p>
 <h2 id="what-was-measured">What was measured</h2>
 <p>No empirical or statistical performance claims were measured for this project. Scope enforcement and structured output parsers (nmap XML and ffuf JSON) were verified with 32 unit tests in pytest.</p>
 <h2 id="what-is-still-open">What is still open</h2>
-<p>No empirical accuracy or latency benchmarks exist for model responses, exploit suggestions, or tool-parsing reliability. The project remains a personal lab utility without production deployment or evaluation metrics.</p> </div>  </div>  </main> </div>  </body></html> 
+<p>No empirical accuracy or latency benchmarks exist for model responses, exploit suggestions, or tool-parsing reliability. The project remains a personal lab utility without production deployment or evaluation metrics.</p> </div>  </div>  </main> </div>  <script>
+  (function() {
+    window.setPortfolioTheme = function(theme) {
+      if (!theme || !['modern', 'matrix', 'amber', 'nord'].includes(theme)) theme = 'modern';
+      if (theme === 'modern') {
+        document.documentElement.removeAttribute('data-theme');
+        document.documentElement.setAttribute('data-theme', 'modern');
+      } else {
+        document.documentElement.setAttribute('data-theme', theme);
+      }
+      try { localStorage.setItem('portfolio-theme', theme); } catch (e) {}
+
+      document.querySelectorAll('.btn-theme, .btn-theme-pill').forEach(function(btn) {
+        if (btn.getAttribute('data-theme-val') === theme) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    };
+
+    window.cycleTheme = function() {
+      var themes = ['modern', 'amber', 'nord', 'matrix'];
+      var current = document.documentElement.getAttribute('data-theme') || 'modern';
+      var idx = themes.indexOf(current);
+      var next = themes[(idx + 1) % themes.length];
+      window.setPortfolioTheme(next);
+    };
+
+    var targetTheme = 'modern';
+    try {
+      var savedTheme = localStorage.getItem('portfolio-theme');
+      if (savedTheme && ['modern', 'matrix', 'amber', 'nord'].includes(savedTheme)) targetTheme = savedTheme;
+    } catch (e) {}
+    if (targetTheme !== 'modern') document.documentElement.setAttribute('data-theme', targetTheme);
+
+    document.addEventListener('DOMContentLoaded', function() {
+      window.setPortfolioTheme(targetTheme);
+    });
+  })();
+</script> <script>
+  (function() {
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function reveal(el) {
+      el.classList.add('is-visible');
+    }
+
+    function draw(el) {
+      el.classList.add('is-drawn');
+    }
+
+    function init() {
+      var revealEls = document.querySelectorAll('[data-reveal]');
+      var drawEls = document.querySelectorAll('[data-draw-line]');
+
+      if (reduceMotion || !('IntersectionObserver' in window)) {
+        revealEls.forEach(reveal);
+        drawEls.forEach(draw);
+        return;
+      }
+
+      var observer = new IntersectionObserver(function(entries, obs) {
+        entries.forEach(function(entry) {
+          if (!entry.isIntersecting) return;
+          if (entry.target.hasAttribute('data-reveal')) reveal(entry.target);
+          if (entry.target.hasAttribute('data-draw-line')) draw(entry.target);
+          obs.unobserve(entry.target);
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+      revealEls.forEach(function(el) { observer.observe(el); });
+      drawEls.forEach(function(el) { observer.observe(el); });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script> </body></html><!-- Sitewide Theme Controller (Modern / Amber / Nord / Matrix) --> 
